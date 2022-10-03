@@ -1,5 +1,6 @@
-import {Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography} from "@mui/material";
+import {Link, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography} from "@mui/material";
 import Button from "@mui/material/Button";
+import {NavLink, Router} from "react-router-dom";
 
 function createData(
   status: string,
@@ -21,7 +22,9 @@ const List = () => (
     <Typography variant="h4" gutterBottom>
       ToDo List
     </Typography>
-    <Button variant="contained" size="small" sx={{marginBottom: 3}}>Create</Button>
+      <NavLink to="/create-todo" style={{ textDecoration: "none" }}>
+        <Button variant="contained" size="small" sx={{marginBottom: 3}}>Create</Button>
+      </NavLink>
     <TableContainer component={Paper}>
       <Table sx={{minWidth: 650}} aria-label="simple table">
         <TableHead>
