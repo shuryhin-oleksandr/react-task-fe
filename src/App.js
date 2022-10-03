@@ -3,6 +3,7 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import List from "./pages/List";
 import {Container} from "@mui/material";
 import CreateTodo from "./pages/CreateTodo";
+import TodoDetail from "./pages/TodoDetail";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
           <Routes>
             <Route path="/" element={<List/>}/>
             <Route path="/create-todo" element={<CreateTodo/>}/>
+            <Route path="/todos/:id" element={<TodoDetail/>}/>
           </Routes>
         </Container>
       </div>

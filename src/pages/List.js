@@ -1,20 +1,21 @@
-import {Link, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography} from "@mui/material";
+import {Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography} from "@mui/material";
 import Button from "@mui/material/Button";
-import {NavLink, Router} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 
 function createData(
+  id: number,
   status: string,
   name: number,
 ) {
-  return {status, name};
+  return {id, status, name};
 }
 
 const rows = [
-  createData('Done', 'Feed the cat'),
-  createData('In progress', 'Wash the car'),
-  createData('To do', 'Call Denis'),
-  createData('In progress', 'Go to driving'),
-  createData('Expired', 'Make an estimation'),
+  createData(1, 'Done', 'Feed the cat'),
+  createData(2, 'In progress', 'Wash the car'),
+  createData(3, 'To do', 'Call Denis'),
+  createData(4, 'In progress', 'Go to driving'),
+  createData(5, 'Expired', 'Make an estimation'),
 ];
 
 const List = () => (
@@ -22,9 +23,9 @@ const List = () => (
     <Typography variant="h4" gutterBottom>
       ToDo List
     </Typography>
-      <NavLink to="/create-todo" style={{ textDecoration: "none" }}>
-        <Button variant="contained" size="small" sx={{marginBottom: 3}}>Create</Button>
-      </NavLink>
+    <NavLink to="/create-todo" style={{textDecoration: "none"}}>
+      <Button variant="contained" size="small" sx={{marginBottom: 3}}>Create</Button>
+    </NavLink>
     <TableContainer component={Paper}>
       <Table sx={{minWidth: 650}} aria-label="simple table">
         <TableHead>
@@ -44,7 +45,9 @@ const List = () => (
                 <Typography variant="body2" gutterBottom>{row.status}</Typography>
               </TableCell>
               <TableCell>
-                {row.name}
+                <NavLink to={`/todos/${row.id}`} style={{textDecoration: "none"}}>
+                  {row.name}
+                </NavLink>
               </TableCell>
               <TableCell>
                 <Button variant="contained" size="small">Remove</Button>
