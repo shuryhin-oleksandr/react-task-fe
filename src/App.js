@@ -7,13 +7,13 @@ import TodoDetail from "./pages/TodoDetail";
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="todos">
       <div className="App">
         <Container maxWidth="md" sx={{paddingY: 5}}>
           <Routes>
             <Route path="/" element={<List/>}/>
-            <Route path="/create-todo" element={<CreateTodo/>}/>
-            <Route path="/todos/:id" element={<TodoDetail/>}/>
+            <Route path="/create" element={<CreateTodo/>}/>
+            <Route path="/:id" element={<TodoDetail/>}/>
           </Routes>
         </Container>
       </div>

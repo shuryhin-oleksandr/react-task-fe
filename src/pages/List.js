@@ -23,7 +23,7 @@ const List = () => (
     <Typography variant="h4" gutterBottom>
       ToDo List
     </Typography>
-    <NavLink to="/create-todo" style={{textDecoration: "none"}}>
+    <NavLink to="/create" style={{textDecoration: "none"}}>
       <Button variant="contained" size="small" sx={{marginBottom: 3}}>Create</Button>
     </NavLink>
     <TableContainer component={Paper}>
@@ -45,7 +45,8 @@ const List = () => (
                 <Typography variant="body2" gutterBottom>{row.status}</Typography>
               </TableCell>
               <TableCell>
-                <NavLink to={`/todos/${row.id}`} style={{textDecoration: "none"}}>
+                {/* TODO: Set an absolute path */}
+                <NavLink to={`/${row.id}`} style={{textDecoration: "none"}}>
                   {row.name}
                 </NavLink>
               </TableCell>
