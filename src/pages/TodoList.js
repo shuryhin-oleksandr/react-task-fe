@@ -18,7 +18,7 @@ const rows = [
   createData(5, 'Expired', 'Make an estimation'),
 ];
 
-const List = () => (
+const TodoList = () => (
   <>
     <Typography variant="h4" gutterBottom>
       ToDo List
@@ -61,4 +61,4 @@ const List = () => (
   </>
 )
 
-export default List
+export default TodoList
