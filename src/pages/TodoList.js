@@ -17,12 +17,14 @@ import LastPageIcon from '@mui/icons-material/LastPage';
 import {Button, TableHead, Typography} from "@mui/material";
 import {NavLink} from "react-router-dom";
 
-function createData(
+export function createData(
   id: number,
   status: string,
   name: number,
+  description:string=null,
+  createdAt:Date=null,
 ) {
-  return {id, status, name};
+  return {id, status, name, description, createdAt};
 }
 
 const rows = [
