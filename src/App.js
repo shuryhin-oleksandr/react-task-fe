@@ -8,6 +8,7 @@ import TodoDetail from "./pages/TodoDetail";
 
 function App() {
   return (
+    // TODO: Add redirect from '/' to '/todos'
     <BrowserRouter basename="todos">
       <div className="App">
         <Container maxWidth="md" sx={{paddingY: 5}}>
