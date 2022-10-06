@@ -91,6 +91,7 @@ export default function TodoList() {
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [todos, setTodos] = React.useState([]);
 
+  // TODO: why it is better to use Redux than hooks?
   // let todos = rows
   // TODO: clarify why not just fetch and assign to a variable, why work via state
   // axios.get(listTodosUrl)
