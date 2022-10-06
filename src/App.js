@@ -5,6 +5,7 @@ import {Container} from "@mui/material";
 import TodoList from "./pages/TodoList";
 import TodoCreate from "./pages/TodoCreate";
 import TodoDetail from "./pages/TodoDetail";
+import TodoEdit from "./pages/TodoEdit";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
             <Route path="/" element={<TodoList/>}/>
             <Route path="/create" element={<TodoCreate/>}/>
             <Route path="/:todoId" element={<TodoDetail/>}/>
+            <Route path="/:todoId/edit" element={<TodoEdit/>}/>
           </Routes>
         </Container>
       </div>
