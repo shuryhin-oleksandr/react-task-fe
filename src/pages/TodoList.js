@@ -113,8 +113,7 @@ export default function TodoList() {
   const [todos, setTodos] = React.useState([]);
 
   // let todos = rows
-  // // TODO: clarify why not just fetch and assign to a variable, why work via state
-  // // TODO: Why todos are printed 2 times?
+  // TODO: clarify why not just fetch and assign to a variable, why work via state
   // axios.get(listTodosUrl)
   //   .then(res => {
   //     todos = res.data;
@@ -127,6 +126,8 @@ export default function TodoList() {
   React.useEffect(() => {
     axios.get(listTodosUrl)
       .then(res => {
+        // TODO: Why todos are printed 2 times?
+        // console.log(res.data);
         setTodos(res.data);
       })
       .catch(e => {
