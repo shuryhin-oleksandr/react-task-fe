@@ -112,7 +112,18 @@ export default function TodoList() {
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [todos, setTodos] = React.useState([]);
 
-  // TODO: clarify why not just fetch and assign to a variable, why work via state
+  // let todos = rows
+  // // TODO: clarify why not just fetch and assign to a variable, why work via state
+  // // TODO: Why todos are printed 2 times?
+  // axios.get(listTodosUrl)
+  //   .then(res => {
+  //     todos = res.data;
+  //     console.log(todos)
+  //   })
+  //   .catch(e => {
+  //     console.log(e);
+  //   })
+
   React.useEffect(() => {
     axios.get(listTodosUrl)
       .then(res => {
