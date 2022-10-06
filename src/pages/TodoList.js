@@ -16,30 +16,9 @@ import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
 import {Button, TableHead, Typography} from "@mui/material";
 import {NavLink} from "react-router-dom";
-import {listTodosUrl} from "../constants";
+import {todoListUrl} from "../constants";
 import axios from "axios";
 
-export function createData(
-  id: number,
-  status: string,
-  name: number,
-  description: string = null,
-  createdAt: Date = null,
-) {
-  return {id, status, name, description, createdAt};
-}
-
-const rows = [
-  createData(1, 'Done', 'Feed the cat'),
-  createData(2, 'In progress', 'Wash the car'),
-  createData(3, 'To do', 'Call Denis'),
-  createData(4, 'In progress', 'Go to driving'),
-  createData(5, 'Expired', 'Make an estimation'),
-  createData(6, 'In progress', 'Buy a new monitor'),
-  createData(7, 'Done', 'Enroll to actors course'),
-];
-
-// export default TodoList
 
 interface TablePaginationActionsProps {
   count: number;
@@ -124,7 +103,7 @@ export default function TodoList() {
   //   })
 
   React.useEffect(() => {
-    axios.get(listTodosUrl)
+    axios.get(`${todoListUrl}/`)
       .then(res => {
         // TODO: Why todos are printed 2 times?
         // console.log(res.data);

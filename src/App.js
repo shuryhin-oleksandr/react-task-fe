@@ -9,13 +9,14 @@ import TodoDetail from "./pages/TodoDetail";
 function App() {
   return (
     // TODO: Add redirect from '/' to '/todos'
+    // TODO: Is is ok to use BrowserRouter?
     <BrowserRouter basename="todos">
       <div className="App">
         <Container maxWidth="md" sx={{paddingY: 5}}>
           <Routes>
             <Route path="/" element={<TodoList/>}/>
             <Route path="/create" element={<TodoCreate/>}/>
-            <Route path="/:id" element={<TodoDetail/>}/>
+            <Route path="/:todoId" element={<TodoDetail/>}/>
           </Routes>
         </Container>
       </div>
