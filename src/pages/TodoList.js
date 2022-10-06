@@ -178,7 +178,7 @@ export default function TodoList() {
             ).map((todo) => (
               <TableRow key={todo.name}>
                 <TableCell component="th" scope="row">
-                  <Typography variant="body2" gutterBottom>{todo.status}</Typography>
+                  <Typography variant="body2" gutterBottom>{todo.status? 'Done' : 'Undone' }</Typography>
                 </TableCell>
                 <TableCell>
                   <NavLink to={`/${todo.id}`} style={{textDecoration: "none"}}>
