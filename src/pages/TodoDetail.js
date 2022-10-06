@@ -35,7 +35,7 @@ const TodoDetail = () => {
           {row.description}
         </Typography>
         <Typography variant="body1" gutterBottom>
-          {/*TODO: How to debug an app*/}
+          {/*TODO: How to debug an app ()*/}
           {/*TODO: fix date formatting*/}
           {dateStr}
         </Typography>

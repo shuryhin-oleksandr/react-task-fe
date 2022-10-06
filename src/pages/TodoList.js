@@ -16,13 +16,15 @@ import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
 import {Button, TableHead, Typography} from "@mui/material";
 import {NavLink} from "react-router-dom";
+import {listTodosUrl} from "../constants";
+import axios from "axios";
 
 export function createData(
   id: number,
   status: string,
   name: number,
-  description:string=null,
-  createdAt:Date=null,
+  description: string = null,
+  createdAt: Date = null,
 ) {
   return {id, status, name, description, createdAt};
 }
@@ -108,6 +110,18 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
 export default function TodoList() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [todos, setTodos] = React.useState([]);
+
+  // TODO: clarify why not just fetch and assign to a variable, why work via state
+  React.useEffect(() => {
+    axios.get(listTodosUrl)
+      .then(res => {
+        setTodos(res.data);
+      })
+      .catch(e => {
+        console.log(e);
+      })
+  });
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
@@ -147,16 +161,16 @@ export default function TodoList() {
 
           <TableBody>
             {(rowsPerPage > 0
-                ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                : rows
-            ).map((row) => (
-              <TableRow key={row.name}>
+                ? todos.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                : todos
+            ).map((todo) => (
+              <TableRow key={todo.name}>
                 <TableCell component="th" scope="row">
-                  <Typography variant="body2" gutterBottom>{row.status}</Typography>
+                  <Typography variant="body2" gutterBottom>{todo.status}</Typography>
                 </TableCell>
                 <TableCell>
-                  <NavLink to={`/${row.id}`} style={{textDecoration: "none"}}>
-                    {row.name}
+                  <NavLink to={`/${todo.id}`} style={{textDecoration: "none"}}>
+                    {todo.name}
                   </NavLink>
                 </TableCell>
                 <TableCell>
@@ -175,7 +189,7 @@ export default function TodoList() {
               <TablePagination
                 rowsPerPageOptions={[5, 10, 25, {label: 'All', value: -1}]}
                 colSpan={3}
-                count={rows.length}
+                count={todos.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 SelectProps={{
