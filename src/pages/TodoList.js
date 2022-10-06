@@ -103,6 +103,10 @@ export default function TodoList() {
   //   })
 
   React.useEffect(() => {
+    getTodoList()
+  }, []);
+
+  const getTodoList = () => {
     axios.get(`${todoListUrl}/`)
       .then(res => {
         // TODO: Why todos are printed 2 times?
@@ -112,11 +116,20 @@ export default function TodoList() {
       .catch(e => {
         console.log(e);
       })
-  }, []);
+  }
+
+  const removeTodo = (todoId) => {
+    const todoRemoveUrl = `${todoListUrl}/${todoId}/`
+    axios.delete(todoRemoveUrl)
+      .then(getTodoList)
+      .catch(e => {
+        console.log(e);
+      })
+  }
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - todos.length) : 0;
 
   const handleChangePage = (
     event: React.MouseEvent<HTMLButtonElement> | null,
@@ -157,15 +170,19 @@ export default function TodoList() {
             ).map((todo) => (
               <TableRow key={todo.name}>
                 <TableCell component="th" scope="row">
-                  <Typography variant="body2" gutterBottom>{todo.status? 'Done' : 'Undone' }</Typography>
+                  <Typography variant="body2" gutterBottom>{todo.status ? 'Done' : 'Undone'}</Typography>
                 </TableCell>
                 <TableCell>
-                  <NavLink to={`/${todo.id}`} style={{textDecoration: "none"}}>
+                  <NavLink to={`/${todo.id}/`} style={{textDecoration: "none"}}>
                     {todo.name}
                   </NavLink>
                 </TableCell>
                 <TableCell>
-                  <Button variant="contained" size="small">Remove</Button>
+                  <Button
+                    variant="contained"
+                    size="small"
+                    onClick={() => removeTodo(todo.id)}
+                  >Remove</Button>
                 </TableCell>
               </TableRow>
             ))}
