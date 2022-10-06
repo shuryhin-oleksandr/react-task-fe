@@ -132,7 +132,7 @@ export default function TodoList() {
       .catch(e => {
         console.log(e);
       })
-  });
+  }, []);
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
