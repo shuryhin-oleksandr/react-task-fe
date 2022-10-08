@@ -7,18 +7,8 @@ import {getTodo, selectTodo} from "./todosSlice";
 import {useDispatch, useSelector} from "react-redux";
 
 
-const TodoDetail = () => {
-  const todo = useSelector(selectTodo)
-  const {todoId} = useParams();
+export const TodoDetailPage = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  // const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
-  // const dateStr = row.createdAt.toLocaleDateString("en-US", dateOptions)
-  // let dateStr = row.createdAt.toDateString()
-
-  React.useEffect(() => {
-    dispatch(getTodo(todoId))
-  }, []);
 
   return (
     <>
@@ -27,25 +17,51 @@ const TodoDetail = () => {
       </Button>
       <Typography variant="h4" gutterBottom>Todo details</Typography>
       <Paper elevation={3} sx={{maxWidth: 350, padding: 3}}>
-        <Box sx={{display: "flex"}}>
-          <Typography variant="h6">
-            {todo.name}
-          </Typography>
-          <Chip label={todo.status ? 'Done' : 'Undone'} color="primary" variant="outlined" size="small"
-                sx={{marginLeft: 1, marginTop: -1}}/>
-          <NavLink to="edit" style={{textDecoration: "none", marginLeft: "auto"}}>
-            <Button variant="contained" size="small">Edit</Button>
-          </NavLink>
-        </Box>
-        <Typography variant="body1" gutterBottom>
-          {todo.description}
-        </Typography>
-        <Typography variant="body1" gutterBottom>
-          {/*TODO: How to debug an app ()*/}
-          {/*TODO: fix date formatting*/}
-          {todo.created_at}
-        </Typography>
+        <TodoDetail/>
       </Paper>
+    </>
+  )
+}
+
+
+const TodoDetail = () => {
+  const todo = useSelector(selectTodo)
+
+  const dispatch = useDispatch();
+  const {todoId} = useParams();
+  React.useEffect(() => {
+    dispatch(getTodo(todoId))
+  }, []);
+
+  // const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+  // const dateStr = row.createdAt.toLocaleDateString("en-US", dateOptions)
+  // let dateStr = row.createdAt.toDateString()
+
+  // TODO: Is that a correct way for a conditional rendering?
+  if (!todo) {
+    return <Typography variant="h6">Todo not found</Typography>
+  }
+
+  return (
+    <>
+      <Box sx={{display: "flex"}}>
+        <Typography variant="h6">
+          {todo.name}
+        </Typography>
+        <Chip label={todo.status ? 'Done' : 'Undone'} color="primary" variant="outlined" size="small"
+              sx={{marginLeft: 1, marginTop: -1}}/>
+        <NavLink to="edit" style={{textDecoration: "none", marginLeft: "auto"}}>
+          <Button variant="contained" size="small">Edit</Button>
+        </NavLink>
+      </Box>
+      <Typography variant="body1" gutterBottom>
+        {todo.description}
+      </Typography>
+      <Typography variant="body1" gutterBottom>
+        {/*TODO: How to debug an app ()*/}
+        {/*TODO: fix date formatting*/}
+        {todo.created_at}
+      </Typography>
     </>
   )
 }

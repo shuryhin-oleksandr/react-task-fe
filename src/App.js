@@ -4,7 +4,7 @@ import {Container} from "@mui/material";
 
 import TodoList from "./features/todos/TodoList";
 import TodoCreate from "./features/todos/TodoCreate";
-import TodoDetail from "./features/todos/TodoDetail";
+import {TodoDetailPage} from "./features/todos/TodoDetail";
 import TodoEdit from "./features/todos/TodoEdit";
 
 function App() {
@@ -15,10 +15,10 @@ function App() {
       <div className="App">
         <Container maxWidth="md" sx={{paddingY: 5}}>
           <Routes>
-            <Route path="/" element={<TodoList/>}/>
-            <Route path="/create" element={<TodoCreate/>}/>
-            <Route path="/:todoId" element={<TodoDetail/>}/>
-            <Route path="/:todoId/edit" element={<TodoEdit/>}/>
+            <Route path="/" element={<TodoList />}/>
+            <Route path="/create" element={<TodoCreate />}/>
+            <Route path="/:todoId" element={<TodoDetailPage />}/>
+            <Route path="/:todoId/edit" element={<TodoEdit />}/>
           </Routes>
         </Container>
       </div>
