@@ -19,6 +19,7 @@ export const todosSlice = createSlice({
       state = []
     },
     setTodoList: (state, action) => {
+      // TODO: Why I cannot just assign to state?
       state.length = 0
       state.push(...action.payload)
     }
@@ -26,7 +27,6 @@ export const todosSlice = createSlice({
 })
 
 export const getTodoList = async (dispatch, getState) => {
-  // TODO: make it with try/catch
   try {
     const todos = await fetchTodoList()
     dispatch(setTodoList(todos))
@@ -35,6 +35,7 @@ export const getTodoList = async (dispatch, getState) => {
   }
 }
 
+// TODO: Correct naming here?
 export const {getTodosList, getTodo, removeTodo, setTodoList} = todosSlice.actions
 
 export default todosSlice.reducer
