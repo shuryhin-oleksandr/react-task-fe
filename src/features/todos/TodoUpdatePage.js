@@ -1,10 +1,10 @@
 import {Button, TextField, Typography} from "@mui/material";
 import * as React from "react";
 import {useState} from "react";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import Paper from "@mui/material/Paper";
-import {useDispatch} from "react-redux";
-import {createTodo} from "./todosSlice";
+import {useDispatch, useSelector} from "react-redux";
+import {getTodo, selectTodo, updateTodo} from "./todosSlice";
 
 const TodoUpdatePage = () => {
   const navigate = useNavigate();
@@ -22,15 +22,21 @@ const TodoUpdatePage = () => {
 }
 
 export const TodoUpdateForm = () => {
-  const [name, setName] = useState('')
-  const [description, setDescription] = useState('')
   const dispatch = useDispatch()
+  const {todoId} = useParams();
+  React.useEffect(() => {
+    dispatch(getTodo(todoId))
+  }, []);
+
+  const todo = useSelector(selectTodo)
+  const [name, setName] = useState(todo.name)
+  const [description, setDescription] = useState(todo.description)
 
   const onNameChanged = e => setName(e.target.value)
   const onDescriptionChanged = e => setDescription(e.target.value)
 
   const handleSubmit = () => {
-    dispatch(createTodo({name, description}))
+    dispatch(updateTodo(todoId,{name, description}))
   }
 
   return (
