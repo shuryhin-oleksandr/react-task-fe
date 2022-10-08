@@ -39,6 +39,9 @@ export const TodoUpdateForm = () => {
     dispatch(updateTodo(todoId, {name, description}))
   }
 
+  // Ask: What is a proper way to do a validation?
+  const canSave = name.length >= 3 && description.length >= 3
+
   // Ask: how to deduplicate with todoCreateForm
   return (
     <section>
@@ -50,7 +53,9 @@ export const TodoUpdateForm = () => {
         <TextField id="todoDescription" label="Description" variant="outlined" size="small" margin="dense"
                    value={description} onChange={onDescriptionChanged}/>
         <br/>
-        <Button variant="contained" size="small" sx={{marginTop: 1}} onClick={handleSubmit}>Save</Button>
+        <Button variant="contained" size="small" sx={{marginTop: 1}} onClick={handleSubmit} disabled={!canSave}>
+          Save
+        </Button>
       </form>
     </section>
   )
