@@ -154,7 +154,7 @@ const TodoList = () => {
                 ? todos.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 : todos
             ).map((todo) => (
-              <TableRow key={todo.name}>
+              <TableRow key={todo.id}>
                 <TableCell component="th" scope="row">
                   <Typography variant="body2" gutterBottom>{todo.status ? 'Done' : 'Undone'}</Typography>
                 </TableCell>
