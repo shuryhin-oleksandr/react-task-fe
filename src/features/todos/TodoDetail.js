@@ -3,7 +3,7 @@ import {NavLink, useNavigate, useParams} from "react-router-dom";
 import Paper from "@mui/material/Paper";
 import * as React from "react";
 import Box from "@mui/material/Box";
-import {getTodo, selectTodo} from "../features/todos/todosSlice";
+import {getTodo, selectTodo} from "./todosSlice";
 import {useDispatch, useSelector} from "react-redux";
 
 

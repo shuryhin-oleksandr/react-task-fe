@@ -2,10 +2,10 @@ import './App.css';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {Container} from "@mui/material";
 
-import TodoList from "./pages/TodoList";
-import TodoCreate from "./pages/TodoCreate";
-import TodoDetail from "./pages/TodoDetail";
-import TodoEdit from "./pages/TodoEdit";
+import TodoList from "./features/todos/TodoList";
+import TodoCreate from "./features/todos/TodoCreate";
+import TodoDetail from "./features/todos/TodoDetail";
+import TodoEdit from "./features/todos/TodoEdit";
 
 function App() {
   return (
