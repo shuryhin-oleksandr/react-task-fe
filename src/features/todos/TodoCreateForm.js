@@ -18,14 +18,14 @@ export const TodoCreateForm = () => {
   return (
     <section>
       {/*TODO: Should I bind handleSubmit to form itself or to a sumit button*/}
-      <form onSubmit={handleSubmit}>
+      <form>
         <TextField id="todoName" label="Name" variant="outlined" size="small" margin="dense"
                    value={name} onChange={onNameChanged} />
         <br/>
         <TextField id="todoDescription" label="Description" variant="outlined" size="small" margin="dense"
                    value={description} onChange={onDescriptionChanged}/>
         <br/>
-        <Button type="submit" variant="contained" size="small" sx={{marginTop: 1}}>Save</Button>
+        <Button variant="contained" size="small" sx={{marginTop: 1}} onClick={handleSubmit}>Save</Button>
       </form>
     </section>
   )
