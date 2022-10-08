@@ -5,16 +5,6 @@ export const todosSlice = createSlice({
   name: 'todos',
   initialState: [],
   reducers: {
-    getTodosList: state => {
-      // Redux Toolkit allows us to write "mutating" logic in reducers. It
-      // doesn't actually mutate the state because it uses the immer library,
-      // which detects changes to a "draft state" and produces a brand new
-      // immutable state based off those changes
-      state = []
-    },
-    getTodo: (state, action) => {
-      state = []
-    },
     setTodoList: (state, action) => {
       // TODO: Why I cannot just assign to state?
       state.length = 0
@@ -23,6 +13,7 @@ export const todosSlice = createSlice({
   }
 })
 
+// TODO: How to trace thunk actions?
 export const getTodoList = async (dispatch, getState) => {
   try {
     const todos = await TodoAPI.fetchAll()
@@ -41,8 +32,16 @@ export const removeTodo = todoId => async (dispatch, getState) => {
   }
 }
 
+export const getTodo = todoId => async (dispatch, getState) => {
+  try {
+    const todo = await TodoAPI.fetchById(todoId)
+    dispatch(setTodoList([todo]))
+  } catch (err) {
+    console.log(err)
+  }
+}
 
 // TODO: Correct naming here?
-export const {getTodosList, getTodo, setTodoList} = todosSlice.actions
+export const {setTodoList} = todosSlice.actions
 
 export default todosSlice.reducer

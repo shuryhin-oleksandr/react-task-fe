@@ -3,27 +3,22 @@ import {NavLink, useNavigate, useParams} from "react-router-dom";
 import Paper from "@mui/material/Paper";
 import * as React from "react";
 import Box from "@mui/material/Box";
-import axios from "axios";
-import {todoListUrl} from "../constants";
+import {getTodo} from "../features/todos/todosSlice";
+import {useDispatch, useSelector} from "react-redux";
 
 
 const TodoDetail = () => {
-  const [todo, setTodo] = React.useState({})
+  // TODO: Optimize todo retrieval
+  const todo = useSelector(state => state.todos[0])
   const {todoId} = useParams();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   // const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
   // const dateStr = row.createdAt.toLocaleDateString("en-US", dateOptions)
   // let dateStr = row.createdAt.toDateString()
 
   React.useEffect(() => {
-    const todoDetailUrl = `${todoListUrl}/${todoId}/`
-    axios.get(todoDetailUrl)
-      .then(res => {
-        setTodo(res.data);
-      })
-      .catch(e => {
-        console.log(e);
-      })
+    dispatch(getTodo(todoId))
   }, []);
 
   return (

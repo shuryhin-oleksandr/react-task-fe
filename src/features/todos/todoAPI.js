@@ -12,4 +12,10 @@ export class TodoAPI {
     const res = await axios.delete(todoRemoveUrl)
     return res.data
   };
+
+  static async fetchById(todoId) {
+    const todoDetailUrl = `${todoListUrl}/${todoId}/`
+    const res = await axios.get(todoDetailUrl)
+    return res.data
+  }
 }
