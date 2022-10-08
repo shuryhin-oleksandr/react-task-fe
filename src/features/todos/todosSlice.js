@@ -45,3 +45,7 @@ export const getTodo = todoId => async (dispatch, getState) => {
 export const {setTodoList} = todosSlice.actions
 
 export default todosSlice.reducer
+
+export const selectTodoList = state => state.todos
+// TODO: Optimize todo retrieval
+export const selectTodo = state => state.todos[0]

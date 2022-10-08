@@ -3,13 +3,12 @@ import {NavLink, useNavigate, useParams} from "react-router-dom";
 import Paper from "@mui/material/Paper";
 import * as React from "react";
 import Box from "@mui/material/Box";
-import {getTodo} from "../features/todos/todosSlice";
+import {getTodo, selectTodo} from "../features/todos/todosSlice";
 import {useDispatch, useSelector} from "react-redux";
 
 
 const TodoDetail = () => {
-  // TODO: Optimize todo retrieval
-  const todo = useSelector(state => state.todos[0])
+  const todo = useSelector(selectTodo)
   const {todoId} = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();

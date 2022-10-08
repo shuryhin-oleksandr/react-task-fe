@@ -17,7 +17,7 @@ import LastPageIcon from '@mui/icons-material/LastPage';
 import {Button, TableHead, Typography} from "@mui/material";
 import {NavLink} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {getTodoList, removeTodo} from "../features/todos/todosSlice";
+import {getTodoList, removeTodo, selectTodoList} from "../features/todos/todosSlice";
 
 
 interface TablePaginationActionsProps {
@@ -91,7 +91,7 @@ export default function TodoList() {
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   const dispatch = useDispatch()
-  const todos = useSelector(state => state.todos)
+  const todos = useSelector(selectTodoList)
 
   React.useEffect(() => {
     dispatch(getTodoList)
