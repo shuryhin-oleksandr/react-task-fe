@@ -41,6 +41,15 @@ export const getTodo = todoId => async (dispatch, getState) => {
   }
 }
 
+export const updateTodo = todoId => async (dispatch, getState) => {
+  try {
+    const todo = await TodoAPI.updateById(todoId)
+    dispatch(setTodoList([todo]))
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 export const removeTodo = todoId => async (dispatch, getState) => {
   try {
     await TodoAPI.removeById(todoId)

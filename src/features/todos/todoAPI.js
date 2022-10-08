@@ -19,6 +19,12 @@ export class TodoAPI {
     return res.data
   }
 
+  static async updateById(todoId, todoData) {
+    const todoUpdatelUrl = `${todoListUrl}/${todoId}/`
+    const res = await axios.patch(todoUpdatelUrl, todoData)
+    return res.data
+  }
+
   static async removeById(todoId) {
     const todoRemoveUrl = `${todoListUrl}/${todoId}/`
     const res = await axios.delete(todoRemoveUrl)
