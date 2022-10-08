@@ -36,9 +36,10 @@ export const TodoUpdateForm = () => {
   const onDescriptionChanged = e => setDescription(e.target.value)
 
   const handleSubmit = () => {
-    dispatch(updateTodo(todoId,{name, description}))
+    dispatch(updateTodo(todoId, {name, description}))
   }
 
+  // Ask: how to deduplicate with todoCreateForm
   return (
     <section>
       {/*Ask: Should I bind handleSubmit to form itself or to a sumit button*/}
