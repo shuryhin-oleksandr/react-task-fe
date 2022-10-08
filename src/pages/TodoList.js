@@ -16,8 +16,8 @@ import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
 import {Button, TableHead, Typography} from "@mui/material";
 import {NavLink} from "react-router-dom";
-import {todoListUrl} from "../constants";
-import axios from "axios";
+import {useDispatch, useSelector} from "react-redux";
+import {getTodoList} from "../features/todos/todosSlice";
 
 
 interface TablePaginationActionsProps {
@@ -89,44 +89,22 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
 export default function TodoList() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [todos, setTodos] = React.useState([]);
 
-  // TODO: why it is better to use Redux than hooks?
-  // let todos = rows
-  // TODO: clarify why not just fetch and assign to a variable, why work via state
-  // axios.get(listTodosUrl)
-  //   .then(res => {
-  //     todos = res.data;
-  //     console.log(todos)
-  //   })
-  //   .catch(e => {
-  //     console.log(e);
-  //   })
+  const dispatch = useDispatch()
+  const todos = useSelector(state => state.todos)
 
   React.useEffect(() => {
-    getTodoList()
+    dispatch(getTodoList)
   }, []);
 
-  const getTodoList = () => {
-    axios.get(`${todoListUrl}/`)
-      .then(res => {
-        // TODO: Why todos are printed 2 times?
-        // console.log(res.data);
-        setTodos(res.data);
-      })
-      .catch(e => {
-        console.log(e);
-      })
-  }
-
-  const removeTodo = (todoId) => {
-    const todoRemoveUrl = `${todoListUrl}/${todoId}/`
-    axios.delete(todoRemoveUrl)
-      .then(getTodoList)
-      .catch(e => {
-        console.log(e);
-      })
-  }
+  // const removeTodo = (todoId) => {
+  //   const todoRemoveUrl = `${todoListUrl}/${todoId}/`
+  //   axios.delete(todoRemoveUrl)
+  //     .then(fetchTodoList)
+  //     .catch(e => {
+  //       console.log(e);
+  //     })
+  // }
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
@@ -182,7 +160,7 @@ export default function TodoList() {
                   <Button
                     variant="contained"
                     size="small"
-                    onClick={() => removeTodo(todo.id)}
+                    // onClick={() => removeTodo(todo.id)}
                   >Remove</Button>
                 </TableCell>
               </TableRow>
