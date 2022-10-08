@@ -35,7 +35,7 @@ export const TodoCreateForm = () => {
 
   return (
     <section>
-      {/*TODO: Should I bind handleSubmit to form itself or to a sumit button*/}
+      {/*Ask: Should I bind handleSubmit to form itself or to a sumit button*/}
       <form>
         <TextField id="todoName" label="Name" variant="outlined" size="small" margin="dense"
                    value={name} onChange={onNameChanged}/>

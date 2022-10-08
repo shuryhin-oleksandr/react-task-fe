@@ -36,7 +36,7 @@ const TodoDetail = () => {
   // const dateStr = row.createdAt.toLocaleDateString("en-US", dateOptions)
   // let dateStr = row.createdAt.toDateString()
 
-  // TODO: Is that a correct way for a conditional rendering?
+  // Ask: Is that a correct way for a conditional rendering?
   if (!todo) {
     return <Typography variant="h6">Todo not found</Typography>
   }
@@ -57,8 +57,8 @@ const TodoDetail = () => {
         {todo.description}
       </Typography>
       <Typography variant="body1" gutterBottom>
-        {/*TODO: How to debug an app ()*/}
-        {/*TODO: fix date formatting*/}
+        {/*Ask: How to debug an app ()*/}
+        {/*Ask: fix date formatting*/}
         {todo.created_at}
       </Typography>
     </>

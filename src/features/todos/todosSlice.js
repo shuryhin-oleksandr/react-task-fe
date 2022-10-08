@@ -6,14 +6,14 @@ export const todosSlice = createSlice({
   initialState: [],
   reducers: {
     setTodoList: (state, action) => {
-      // TODO: Why I cannot just assign to state?
+      // Ask: Why I cannot just assign to state?
       state.length = 0
       state.push(...action.payload)
     }
   }
 })
 
-// TODO: How to trace thunk actions?
+// Ask: How to trace thunk actions?
 export const getTodoList = async (dispatch, getState) => {
   try {
     const todos = await TodoAPI.fetchAll()

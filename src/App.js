@@ -10,7 +10,7 @@ import {TodoEditPage} from "./features/todos/TodoEditPage";
 function App() {
   return (
     // TODO: Add redirect from '/' to '/todos'
-    // TODO: Is is ok to use BrowserRouter?
+    // Ask: Is is ok to use BrowserRouter?
     <BrowserRouter basename="todos">
       <div className="App">
         <Container maxWidth="md" sx={{paddingY: 5}}>

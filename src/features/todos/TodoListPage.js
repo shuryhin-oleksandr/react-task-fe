@@ -128,7 +128,7 @@ const TodoList = () => {
     setPage(0);
   };
 
-  // TODO: deduplicate with TodoDetailPage
+  // Ask: deduplicate with TodoDetailPage
   if (!todos.length) {
     return (
       <Paper elevation={3} sx={{maxWidth: 350, padding: 3}}>
