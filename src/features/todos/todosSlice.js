@@ -1,14 +1,19 @@
 import {createSlice} from '@reduxjs/toolkit'
 import {TodoAPI} from "./todoAPI";
 
+const initialState = {
+  items: [],
+  status: 'idle',
+  error: null
+}
+
 export const todosSlice = createSlice({
   name: 'todos',
-  initialState: [],
+  initialState: initialState,
   reducers: {
     setTodoList: (state, action) => {
       // Ask: Why I cannot just assign to state?
-      state.length = 0
-      state.push(...action.payload)
+      state.items = action.payload
     }
   }
 })
@@ -64,6 +69,6 @@ export const {setTodoList} = todosSlice.actions
 
 export default todosSlice.reducer
 
-export const selectTodoList = state => state.todos
+export const selectTodoList = state => state.todos.items
 // TODO: Optimize todo retrieval
-export const selectTodo = state => state.todos[0]
+export const selectTodo = state => state.todos.items[0]
