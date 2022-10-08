@@ -41,6 +41,15 @@ export const getTodo = todoId => async (dispatch, getState) => {
   }
 }
 
+export const createTodo = todoData => async (dispatch, getState) => {
+  try {
+    await TodoAPI.create(todoData)
+    dispatch(getTodoList)
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 // TODO: Correct naming here?
 export const {setTodoList} = todosSlice.actions
 
