@@ -3,9 +3,9 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {Container} from "@mui/material";
 
 import {TodoListPage} from "./features/todos/TodoListPage";
-import {TodoCreate} from "./features/todos/TodoCreate";
+import {TodoCreatePage} from "./features/todos/TodoCreatePage";
 import {TodoDetailPage} from "./features/todos/TodoDetailPage";
-import {TodoEdit} from "./features/todos/TodoEdit";
+import {TodoEditPage} from "./features/todos/TodoEditPage";
 
 function App() {
   return (
@@ -16,9 +16,9 @@ function App() {
         <Container maxWidth="md" sx={{paddingY: 5}}>
           <Routes>
             <Route path="/" element={<TodoListPage />}/>
-            <Route path="/create" element={<TodoCreate />}/>
+            <Route path="/create" element={<TodoCreatePage />}/>
             <Route path="/:todoId" element={<TodoDetailPage />}/>
-            <Route path="/:todoId/edit" element={<TodoEdit />}/>
+            <Route path="/:todoId/edit" element={<TodoEditPage />}/>
           </Routes>
         </Container>
       </div>
