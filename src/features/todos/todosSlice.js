@@ -25,7 +25,7 @@ export const todosSlice = createSlice({
 
 export const getTodoList = async (dispatch, getState) => {
   try {
-    const todos = await TodoAPI.fetchTodoList()
+    const todos = await TodoAPI.fetchAll()
     dispatch(setTodoList(todos))
   } catch (err) {
     console.log(err)
@@ -34,7 +34,7 @@ export const getTodoList = async (dispatch, getState) => {
 
 export const removeTodo = todoId => async (dispatch, getState) => {
   try {
-    await TodoAPI.removeTodo(todoId)
+    await TodoAPI.removeById(todoId)
     dispatch(getTodoList)
   } catch (err) {
     console.log(err)
