@@ -13,20 +13,20 @@ export const todosSlice = createSlice({
   }
 })
 
-// Ask: How to trace thunk actions?
-export const getTodoList = async (dispatch, getState) => {
+export const createTodo = todoData => async (dispatch, getState) => {
   try {
-    const todos = await TodoAPI.fetchAll()
-    dispatch(setTodoList(todos))
+    await TodoAPI.create(todoData)
+    dispatch(getTodoList)
   } catch (err) {
     console.log(err)
   }
 }
 
-export const removeTodo = todoId => async (dispatch, getState) => {
+// Ask: How to trace thunk actions?
+export const getTodoList = async (dispatch, getState) => {
   try {
-    await TodoAPI.removeById(todoId)
-    dispatch(getTodoList)
+    const todos = await TodoAPI.fetchAll()
+    dispatch(setTodoList(todos))
   } catch (err) {
     console.log(err)
   }
@@ -41,9 +41,9 @@ export const getTodo = todoId => async (dispatch, getState) => {
   }
 }
 
-export const createTodo = todoData => async (dispatch, getState) => {
+export const removeTodo = todoId => async (dispatch, getState) => {
   try {
-    await TodoAPI.create(todoData)
+    await TodoAPI.removeById(todoId)
     dispatch(getTodoList)
   } catch (err) {
     console.log(err)
