@@ -2,10 +2,10 @@ import './App.css';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {Container} from "@mui/material";
 
-import TodoList from "./features/todos/TodoList";
-import TodoCreate from "./features/todos/TodoCreate";
-import {TodoDetailPage} from "./features/todos/TodoDetail";
-import TodoEdit from "./features/todos/TodoEdit";
+import {TodoListPage} from "./features/todos/TodoListPage";
+import {TodoCreate} from "./features/todos/TodoCreate";
+import {TodoDetailPage} from "./features/todos/TodoDetailPage";
+import {TodoEdit} from "./features/todos/TodoEdit";
 
 function App() {
   return (
@@ -15,7 +15,7 @@ function App() {
       <div className="App">
         <Container maxWidth="md" sx={{paddingY: 5}}>
           <Routes>
-            <Route path="/" element={<TodoList />}/>
+            <Route path="/" element={<TodoListPage />}/>
             <Route path="/create" element={<TodoCreate />}/>
             <Route path="/:todoId" element={<TodoDetailPage />}/>
             <Route path="/:todoId/edit" element={<TodoEdit />}/>

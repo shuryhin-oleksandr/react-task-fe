@@ -7,7 +7,7 @@ import {getTodo, selectTodo} from "./todosSlice";
 import {useDispatch, useSelector} from "react-redux";
 
 
-export const TodoDetailPage = () => {
+const TodoDetailPage = () => {
   const navigate = useNavigate();
 
   return (
@@ -22,7 +22,6 @@ export const TodoDetailPage = () => {
     </>
   )
 }
-
 
 const TodoDetail = () => {
   const todo = useSelector(selectTodo)
@@ -66,4 +65,4 @@ const TodoDetail = () => {
   )
 }
 
-export default TodoDetail
+export {TodoDetailPage}

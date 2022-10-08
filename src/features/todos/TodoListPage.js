@@ -86,13 +86,26 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
   );
 }
 
-export default function TodoList() {
+const TodoListPage = () => {
+  return (
+    <>
+      <Typography variant="h4" gutterBottom>
+        ToDo List
+      </Typography>
+      <NavLink to="/create" style={{textDecoration: "none"}}>
+        <Button variant="contained" size="small" sx={{marginBottom: 3}}>Create</Button>
+      </NavLink>
+      <TodoList/>
+    </>
+  )
+}
+
+const TodoList = () => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   const dispatch = useDispatch()
   const todos = useSelector(selectTodoList)
-
   React.useEffect(() => {
     dispatch(getTodoList)
   }, []);
@@ -115,14 +128,17 @@ export default function TodoList() {
     setPage(0);
   };
 
+  // TODO: deduplicate with TodoDetailPage
+  if (!todos.length) {
+    return (
+      <Paper elevation={3} sx={{maxWidth: 350, padding: 3}}>
+        <Typography variant="h6">Todos not found</Typography>
+      </Paper>
+    )
+  }
+
   return (
     <>
-      <Typography variant="h4" gutterBottom>
-        ToDo List
-      </Typography>
-      <NavLink to="/create" style={{textDecoration: "none"}}>
-        <Button variant="contained" size="small" sx={{marginBottom: 3}}>Create</Button>
-      </NavLink>
       <TableContainer component={Paper}>
         <Table sx={{minWidth: 500}} aria-label="custom pagination table">
           <TableHead>
@@ -186,4 +202,6 @@ export default function TodoList() {
       </TableContainer>
     </>
   );
-}
+};
+
+export {TodoListPage}

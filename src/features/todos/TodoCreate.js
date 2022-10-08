@@ -20,4 +20,4 @@ const TodoCreate = () => {
   )
 }
 
-export default TodoCreate
+export {TodoCreate}
