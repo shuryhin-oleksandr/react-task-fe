@@ -5,7 +5,7 @@ import {Container} from "@mui/material";
 import {TodoListPage} from "./features/todos/TodoListPage";
 import {TodoCreatePage} from "./features/todos/TodoCreatePage";
 import {TodoDetailPage} from "./features/todos/TodoDetailPage";
-import {TodoEditPage} from "./features/todos/TodoEditPage";
+import {TodoUpdatePage} from "./features/todos/TodoUpdatePage";
 
 function App() {
   return (
@@ -18,7 +18,7 @@ function App() {
             <Route path="/" element={<TodoListPage />}/>
             <Route path="/create" element={<TodoCreatePage />}/>
             <Route path="/:todoId" element={<TodoDetailPage />}/>
-            <Route path="/:todoId/edit" element={<TodoEditPage />}/>
+            <Route path="/:todoId/edit" element={<TodoUpdatePage />}/>
           </Routes>
         </Container>
       </div>
