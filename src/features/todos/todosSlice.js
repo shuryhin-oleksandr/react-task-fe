@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit'
-import {fetchTodoList} from "./todoAPI";
+import {TodoAPI} from "./todoAPI";
 
 export const todosSlice = createSlice({
   name: 'todos',
@@ -28,7 +28,7 @@ export const todosSlice = createSlice({
 
 export const getTodoList = async (dispatch, getState) => {
   try {
-    const todos = await fetchTodoList()
+    const todos = await TodoAPI.fetchTodoList()
     dispatch(setTodoList(todos))
   } catch (err) {
     console.log(err)

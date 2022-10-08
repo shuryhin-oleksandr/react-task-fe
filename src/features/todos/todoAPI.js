@@ -1,7 +1,9 @@
 import axios from "axios";
 import {todoListUrl} from "../../constants";
 
-export const fetchTodoList = async () => {
-  const res = await axios.get(`${todoListUrl}/`)
-  return res.data
+export class TodoAPI {
+  static async fetchTodoList() {
+    const res = await axios.get(`${todoListUrl}/`)
+    return res.data
+  }
 }
