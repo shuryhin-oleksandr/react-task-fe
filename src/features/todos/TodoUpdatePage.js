@@ -5,7 +5,7 @@ import Paper from "@mui/material/Paper";
 import {useDispatch, useSelector} from "react-redux";
 import {selectTodo} from "./todosSlice";
 import {TodoAPI} from "./todoAPI";
-import {TodoForm} from "./TodoCreatePage";
+import {TodoForm} from "./TodoForm";
 
 const TodoUpdatePage = () => {
   const navigate = useNavigate();
