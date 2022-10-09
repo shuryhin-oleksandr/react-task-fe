@@ -1,11 +1,12 @@
-import {Button, TextField, Typography} from "@mui/material";
+import {Button, Typography} from "@mui/material";
 import * as React from "react";
-import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import Paper from "@mui/material/Paper";
 import {useDispatch} from "react-redux";
-import {createTodo} from "./todosSlice";
 import {TodoAPI} from "./todoAPI";
+import {Field, Form, Formik} from "formik";
+import {TextField} from "formik-mui";
+import * as Yup from 'yup';
 
 const TodoCreatePage = () => {
   const navigate = useNavigate();
@@ -23,31 +24,44 @@ const TodoCreatePage = () => {
 }
 
 export const TodoCreateForm = () => {
-  const [name, setName] = useState('')
-  const [description, setDescription] = useState('')
   const dispatch = useDispatch()
 
-  const onNameChanged = e => setName(e.target.value)
-  const onDescriptionChanged = e => setDescription(e.target.value)
-
-  const handleSubmit = () => {
-    dispatch(TodoAPI.create({name, description}))
-  }
-
   return (
-    <section>
-      {/*Ask: Should I bind handleSubmit to form itself or to a sumit button*/}
-      <form>
-        <TextField id="todoName" label="Name" variant="outlined" size="small" margin="dense"
-                   value={name} onChange={onNameChanged}/>
-        <br/>
-        <TextField id="todoDescription" label="Description" variant="outlined" size="small" margin="dense"
-                   value={description} onChange={onDescriptionChanged}/>
-        <br/>
-        <Button variant="contained" size="small" sx={{marginTop: 1}} onClick={handleSubmit}>Save</Button>
-      </form>
-    </section>
-  )
+    <Formik
+      initialValues={{
+        name: '',
+        description: '',
+      }}
+      validationSchema={Yup.object({
+        name: Yup.string()
+          .required('Required')
+          .min(3, 'Must be 3 characters or more')
+          .max(50, 'Must be 50 characters or less'),
+        description: Yup.string()
+          .required('Required')
+          .min(3, 'Must be 3 characters or more')
+          .max(200, 'Must be 200 characters or less'),
+      })}
+      onSubmit={async (values, { setSubmitting }) => {
+        // Ask: how can I submit until request is done?
+        await dispatch(TodoAPI.create(values))
+        setSubmitting(false)
+      }}
+    >
+      {({ submitForm }) => (
+        <Form>
+          <Field
+            component={TextField} name="name" label="Name" variant="outlined" size="small" margin="dense"/>
+          <br/>
+          <Field
+            component={TextField} name="description" label="Description" variant="outlined" size="small"
+            margin="dense"/>
+          <br/>
+          <Button variant="contained" size="small" sx={{marginTop: 1}} onClick={submitForm}>Save</Button>
+        </Form>
+      )}
+    </Formik>
+  );
 }
 
 export {TodoCreatePage}

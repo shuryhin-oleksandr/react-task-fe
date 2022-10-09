@@ -4,9 +4,11 @@ import {createAsyncThunk} from "@reduxjs/toolkit";
 
 export const TodoAPI = {
   create: createAsyncThunk('todos/create', async (todoData) => {
+    // setTimeout(async () => {
     const todoCreateUrl = `${todoListUrl}/`
     const response = await axios.post(todoCreateUrl, todoData)
     return response.data
+    // }, 2000);
   }),
   fetchAll: createAsyncThunk('todos/fetchAll', async () => {
     const response = await axios.get(`${todoListUrl}/`)
