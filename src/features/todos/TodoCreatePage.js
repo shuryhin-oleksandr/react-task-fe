@@ -17,21 +17,18 @@ const TodoCreatePage = () => {
       </Button>
       <Typography variant="h4" gutterBottom>Create Todo</Typography>
       <Paper elevation={3} sx={{maxWidth: 230, padding: 3}}>
-        <TodoCreateForm/>
+        <TodoForm initial={{name: '', description: ''}}/>
       </Paper>
     </>
   )
 }
 
-export const TodoCreateForm = () => {
+export const TodoForm = (props) => {
   const dispatch = useDispatch()
 
   return (
     <Formik
-      initialValues={{
-        name: '',
-        description: '',
-      }}
+      initialValues={props.initial}
       validationSchema={Yup.object({
         name: Yup.string()
           .required('Required')
