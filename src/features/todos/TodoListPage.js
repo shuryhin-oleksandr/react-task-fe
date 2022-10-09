@@ -106,10 +106,11 @@ const TodoList = () => {
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   const dispatch = useDispatch()
-  const todos = useSelector(selectTodoList)
   React.useEffect(() => {
     dispatch(TodoAPI.fetchAll())
   }, []);
+
+  const todos = useSelector(selectTodoList)
 
   const updateTodoDone = (todoId, done) => {
     dispatch(TodoAPI.updateById({todoId: todoId, todoData: {done}}))

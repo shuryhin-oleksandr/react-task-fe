@@ -11,11 +11,12 @@ const TodoUpdatePage = () => {
   const navigate = useNavigate();
 
   const {todoId} = useParams();
+  const todo = useSelector(state => selectTodo(state, Number(todoId)))
+
   const dispatch = useDispatch()
   React.useEffect(() => {
-    dispatch(TodoAPI.fetchById(todoId))
+    dispatch(TodoAPI.fetchAll())
   }, []);
-  const todo = useSelector(selectTodo)
 
   return (
     <>
