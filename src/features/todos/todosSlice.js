@@ -54,6 +54,8 @@ export const todosSlice = createSlice({
         state.error = action.error.message
       })
 
+      // Ask: I can change the todo in the Redux store, but what if in a meanwhile somebody updated another todo?
+      // This way my todo list will be out of sync
       .addCase(TodoAPI.updateById.pending, (state, action) => {
         state.status = 'loading'
       })
