@@ -1,5 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit'
 import {TodoAPI} from "./todoAPI";
+import {useDispatch} from "react-redux";
 
 const initialState = {
   items: [],
@@ -14,55 +15,68 @@ export const todosSlice = createSlice({
     setTodoList: (state, action) => {
       // Ask: Why I cannot just assign to state?
       state.items = action.payload
-    }
+    },
+  },
+  extraReducers(builder) {
+    builder
+      .addCase(TodoAPI.create.pending, (state, action) => {
+        state.status = 'loading'
+      })
+      .addCase(TodoAPI.create.fulfilled, (state, action) => {
+        state.status = 'succeeded'
+      })
+      .addCase(TodoAPI.create.rejected, (state, action) => {
+        state.status = 'failed'
+        state.error = action.error.message
+      })
+
+      .addCase(TodoAPI.fetchAll.pending, (state, action) => {
+        state.status = 'loading'
+      })
+      .addCase(TodoAPI.fetchAll.fulfilled, (state, action) => {
+        state.status = 'succeeded'
+        state.items = action.payload
+      })
+      .addCase(TodoAPI.fetchAll.rejected, (state, action) => {
+        state.status = 'failed'
+        state.error = action.error.message
+      })
+
+      .addCase(TodoAPI.fetchById.pending, (state, action) => {
+        state.status = 'loading'
+      })
+      .addCase(TodoAPI.fetchById.fulfilled, (state, action) => {
+        state.status = 'succeeded'
+        state.items = [action.payload]
+      })
+      .addCase(TodoAPI.fetchById.rejected, (state, action) => {
+        state.status = 'failed'
+        state.error = action.error.message
+      })
+
+      .addCase(TodoAPI.updateById.pending, (state, action) => {
+        state.status = 'loading'
+      })
+      .addCase(TodoAPI.updateById.fulfilled, (state, action) => {
+        state.status = 'succeeded'
+      })
+      .addCase(TodoAPI.updateById.rejected, (state, action) => {
+        state.status = 'failed'
+        state.error = action.error.message
+      })
+
+      .addCase(TodoAPI.removeById.pending, (state, action) => {
+        state.status = 'loading'
+      })
+      .addCase(TodoAPI.removeById.fulfilled, (state, action) => {
+        state.status = 'succeeded'
+      })
+      .addCase(TodoAPI.removeById.rejected, (state, action) => {
+        state.status = 'failed'
+        state.error = action.error.message
+      })
   }
 })
-
-export const createTodo = todoData => async (dispatch, getState) => {
-  try {
-    await TodoAPI.create(todoData)
-    dispatch(getTodoList)
-  } catch (err) {
-    console.log(err)
-  }
-}
-
-// Ask: How to trace thunk actions?
-export const getTodoList = async (dispatch, getState) => {
-  try {
-    const todos = await TodoAPI.fetchAll()
-    dispatch(setTodoList(todos))
-  } catch (err) {
-    console.log(err)
-  }
-}
-
-export const getTodo = todoId => async (dispatch, getState) => {
-  try {
-    const todo = await TodoAPI.fetchById(todoId)
-    dispatch(setTodoList([todo]))
-  } catch (err) {
-    console.log(err)
-  }
-}
-
-export const updateTodo = (todoId, todoData) => async (dispatch, getState) => {
-  try {
-    const todo = await TodoAPI.updateById(todoId, todoData)
-    dispatch(setTodoList([todo]))
-  } catch (err) {
-    console.log(err)
-  }
-}
-
-export const removeTodo = todoId => async (dispatch, getState) => {
-  try {
-    await TodoAPI.removeById(todoId)
-    dispatch(getTodoList)
-  } catch (err) {
-    console.log(err)
-  }
-}
 
 // TODO: Correct naming here?
 export const {setTodoList} = todosSlice.actions

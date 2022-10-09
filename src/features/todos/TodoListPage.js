@@ -17,7 +17,8 @@ import LastPageIcon from '@mui/icons-material/LastPage';
 import {Button, TableHead, Typography} from "@mui/material";
 import {NavLink} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {getTodoList, removeTodo, selectTodoList} from "./todosSlice";
+import {selectTodoList} from "./todosSlice";
+import {TodoAPI} from "./todoAPI";
 
 
 interface TablePaginationActionsProps {
@@ -107,7 +108,7 @@ const TodoList = () => {
   const dispatch = useDispatch()
   const todos = useSelector(selectTodoList)
   React.useEffect(() => {
-    dispatch(getTodoList)
+    dispatch(TodoAPI.fetchAll())
   }, []);
 
   // Avoid a layout jump when reaching the last page with empty rows.
@@ -167,7 +168,7 @@ const TodoList = () => {
                   <Button
                     variant="contained"
                     size="small"
-                    onClick={() => dispatch(removeTodo(todo.id))}
+                    onClick={() => dispatch(TodoAPI.removeById(todo.id))}
                   >Remove</Button>
                 </TableCell>
               </TableRow>

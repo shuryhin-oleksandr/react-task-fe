@@ -5,6 +5,7 @@ import {useNavigate} from "react-router-dom";
 import Paper from "@mui/material/Paper";
 import {useDispatch} from "react-redux";
 import {createTodo} from "./todosSlice";
+import {TodoAPI} from "./todoAPI";
 
 const TodoCreatePage = () => {
   const navigate = useNavigate();
@@ -30,7 +31,7 @@ export const TodoCreateForm = () => {
   const onDescriptionChanged = e => setDescription(e.target.value)
 
   const handleSubmit = () => {
-    dispatch(createTodo({name, description}))
+    dispatch(TodoAPI.create({name, description}))
   }
 
   return (

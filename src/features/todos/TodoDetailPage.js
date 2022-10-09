@@ -5,6 +5,7 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import {getTodo, selectTodo} from "./todosSlice";
 import {useDispatch, useSelector} from "react-redux";
+import {TodoAPI} from "./todoAPI";
 
 
 const TodoDetailPage = () => {
@@ -29,7 +30,7 @@ const TodoDetail = () => {
   const dispatch = useDispatch();
   const {todoId} = useParams();
   React.useEffect(() => {
-    dispatch(getTodo(todoId))
+    dispatch(TodoAPI.fetchById(todoId))
   }, []);
 
   // const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };

@@ -1,33 +1,31 @@
 import axios from "axios";
 import {todoListUrl} from "../../constants";
+import {createAsyncThunk} from "@reduxjs/toolkit";
 
-export class TodoAPI {
-  static async create(todoData) {
+export const TodoAPI = {
+  create: createAsyncThunk('todos/create', async (todoData) => {
     const todoCreateUrl = `${todoListUrl}/`
-    const res = await axios.post(todoCreateUrl, todoData)
-    return res.data
-  }
-
-  static async fetchAll() {
-    const res = await axios.get(`${todoListUrl}/`)
-    return res.data
-  };
-
-  static async fetchById(todoId) {
+    const response = await axios.post(todoCreateUrl, todoData)
+    return response.data
+  }),
+  fetchAll: createAsyncThunk('todos/fetchAll', async () => {
+    const response = await axios.get(`${todoListUrl}/`)
+    console.log(response.data)
+    return response.data
+  }),
+  fetchById: createAsyncThunk('todos/fetchById', async (todoId) => {
     const todoDetailUrl = `${todoListUrl}/${todoId}/`
-    const res = await axios.get(todoDetailUrl)
-    return res.data
-  }
-
-  static async updateById(todoId, todoData) {
+    const response = await axios.get(todoDetailUrl)
+    return response.data
+  }),
+  updateById: createAsyncThunk('todos/updateById', async (todoId, todoData) => {
     const todoUpdatelUrl = `${todoListUrl}/${todoId}/`
-    const res = await axios.patch(todoUpdatelUrl, todoData)
-    return res.data
-  }
-
-  static async removeById(todoId) {
+    const response = await axios.patch(todoUpdatelUrl, todoData)
+    return response.data
+  }),
+  removeById: createAsyncThunk('todos/removeById', async (todoId) => {
     const todoRemoveUrl = `${todoListUrl}/${todoId}/`
-    const res = await axios.delete(todoRemoveUrl)
-    return res.data
-  };
+    const response = await axios.delete(todoRemoveUrl)
+    return response.data
+  }),
 }

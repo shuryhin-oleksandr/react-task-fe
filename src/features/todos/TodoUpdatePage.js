@@ -4,7 +4,8 @@ import {useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import Paper from "@mui/material/Paper";
 import {useDispatch, useSelector} from "react-redux";
-import {getTodo, selectTodo, updateTodo} from "./todosSlice";
+import {selectTodo} from "./todosSlice";
+import {TodoAPI} from "./todoAPI";
 
 const TodoUpdatePage = () => {
   const navigate = useNavigate();
@@ -25,7 +26,7 @@ export const TodoUpdateForm = () => {
   const dispatch = useDispatch()
   const {todoId} = useParams();
   React.useEffect(() => {
-    dispatch(getTodo(todoId))
+    dispatch(TodoAPI.fetchById(todoId))
   }, []);
 
   const todo = useSelector(selectTodo)
@@ -36,7 +37,7 @@ export const TodoUpdateForm = () => {
   const onDescriptionChanged = e => setDescription(e.target.value)
 
   const handleSubmit = () => {
-    dispatch(updateTodo(todoId, {name, description}))
+    dispatch(TodoAPI.updateById(todoId, {name, description}))
   }
 
   // Ask: What is a proper way to do a validation?
