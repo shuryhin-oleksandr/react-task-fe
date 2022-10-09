@@ -14,7 +14,7 @@ import FirstPageIcon from '@mui/icons-material/FirstPage';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
-import {Button, TableHead, Typography} from "@mui/material";
+import {Button, Checkbox, TableHead, Typography} from "@mui/material";
 import {NavLink} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {selectTodoList} from "./todosSlice";
@@ -157,7 +157,7 @@ const TodoList = () => {
             ).map((todo) => (
               <TableRow key={todo.id}>
                 <TableCell component="th" scope="row">
-                  <Typography variant="body2" gutterBottom>{todo.status ? 'Done' : 'Undone'}</Typography>
+                  <Checkbox checked={todo.done} />
                 </TableCell>
                 <TableCell>
                   <NavLink to={`/${todo.id}/`} style={{textDecoration: "none"}}>
