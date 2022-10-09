@@ -1,5 +1,5 @@
 import {useDispatch} from "react-redux";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {Field, Form, Formik} from "formik";
 import * as Yup from "yup";
 import {TodoAPI} from "./todoAPI";
@@ -10,9 +10,14 @@ import * as React from "react";
 export const TodoForm = (props) => {
   const dispatch = useDispatch()
   const {todoId} = useParams();
+  const navigate = useNavigate()
 
-  const handleUpdate = (todoData) => dispatch(TodoAPI.updateById({todoId, todoData}))
-  const handleCreate = (todoData) => dispatch(TodoAPI.create(todoData))
+  const handleUpdate = (todoData) => {
+    dispatch(TodoAPI.updateById({todoId, todoData}))
+  }
+  const handleCreate = (todoData) => {
+    dispatch(TodoAPI.create(todoData))
+  }
 
   const handleSubmit = async (todoData, {setSubmitting}) => {
     if (props.editMode) {
@@ -23,6 +28,7 @@ export const TodoForm = (props) => {
       await handleCreate(todoData)
     }
     setSubmitting(false)
+    navigate(-1)
   }
 
   const validationSchema = Yup.object({
