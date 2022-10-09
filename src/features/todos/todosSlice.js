@@ -27,6 +27,9 @@ export const todosSlice = createSlice({
       state.error = null
     }
   },
+  // Ask: From what I understand, create, update and remove should not update a whole list of todos from server.
+  // It will be strange, the user removes and item, but actually he see new items in a listed added by another
+  // users to the server in a meanwhile
   extraReducers(builder) {
     builder
       .addCase(TodoAPI.create.pending, (state, action) => {
@@ -82,6 +85,7 @@ export const todosSlice = createSlice({
       })
       .addCase(TodoAPI.removeById.fulfilled, (state, action) => {
         state.status = todoOperationStatuses.succeeded
+        // TODO: add the same redux state handling for create and update
         const removedTodoId = action.meta.arg
         state.items = state.items.filter((obj) => obj.id !== removedTodoId)
       })
