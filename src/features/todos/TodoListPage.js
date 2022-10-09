@@ -111,6 +111,10 @@ const TodoList = () => {
     dispatch(TodoAPI.fetchAll())
   }, []);
 
+  const updateTodoDone = (todoId, done) => {
+    dispatch(TodoAPI.updateById({todoId: todoId, todoData: {done}}))
+  }
+
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - todos.length) : 0;
@@ -157,7 +161,7 @@ const TodoList = () => {
             ).map((todo) => (
               <TableRow key={todo.id}>
                 <TableCell component="th" scope="row">
-                  <Checkbox checked={todo.done} />
+                  <Checkbox checked={todo.done} onClick={() => updateTodoDone(todo.id, !todo.done)}/>
                 </TableCell>
                 <TableCell>
                   <NavLink to={`/${todo.id}/`} style={{textDecoration: "none"}}>

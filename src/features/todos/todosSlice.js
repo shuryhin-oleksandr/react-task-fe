@@ -74,6 +74,9 @@ export const todosSlice = createSlice({
       })
       .addCase(TodoAPI.updateById.fulfilled, (state, action) => {
         state.status = todoOperationStatuses.succeeded
+        const updatedTodoData = action.payload
+        const oldTodoIndex = state.items.findIndex(todo => todo.id === updatedTodoData.id)
+        state.items.splice(oldTodoIndex, 1, updatedTodoData)
       })
       .addCase(TodoAPI.updateById.rejected, (state, action) => {
         state.status = todoOperationStatuses.failed
@@ -86,8 +89,8 @@ export const todosSlice = createSlice({
       .addCase(TodoAPI.removeById.fulfilled, (state, action) => {
         state.status = todoOperationStatuses.succeeded
         // TODO: add the same redux state handling for create and update
-        const removedTodoId = action.meta.arg
-        state.items = state.items.filter((obj) => obj.id !== removedTodoId)
+        const todoId = action.meta.arg
+        state.items = state.items.filter((obj) => obj.id !== todoId)
       })
       .addCase(TodoAPI.removeById.rejected, (state, action) => {
         state.status = todoOperationStatuses.failed
@@ -103,6 +106,7 @@ export default todosSlice.reducer
 
 export const selectTodoList = state => state.todos.items
 // TODO: Optimize todo retrieval
-export const selectTodo = state => state.todos.items[0]
+export const selectTodo = (state, todoId) => state.todos.items.find(todo => todo.id === todoId)
+
 export const selectTodoOperationStatus = state => state.todos.status
 export const selectTodoOperationError = state => state.todos.error
