@@ -1,9 +1,16 @@
 import {createSlice} from '@reduxjs/toolkit'
 import {TodoAPI} from "./todoAPI";
 
+export const statuses = {
+  loading: 'loading',
+  succeeded: 'succeeded',
+  failed: 'failed',
+  idle: 'idle',
+}
+
 const initialState = {
   items: [],
-  status: 'idle',
+  status: statuses.idle,
   error: null
 }
 
@@ -19,63 +26,63 @@ export const todosSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(TodoAPI.create.pending, (state, action) => {
-        state.status = 'loading'
+        state.status = statuses.loading
       })
       .addCase(TodoAPI.create.fulfilled, (state, action) => {
-        state.status = 'succeeded'
+        state.status = statuses.succeeded
       })
       .addCase(TodoAPI.create.rejected, (state, action) => {
-        state.status = 'failed'
+        state.status = statuses.failed
         state.error = action.error.message
       })
 
       .addCase(TodoAPI.fetchAll.pending, (state, action) => {
-        state.status = 'loading'
+        state.status = statuses.loading
       })
       .addCase(TodoAPI.fetchAll.fulfilled, (state, action) => {
-        state.status = 'succeeded'
+        state.status = statuses.succeeded
         state.items = action.payload
       })
       .addCase(TodoAPI.fetchAll.rejected, (state, action) => {
-        state.status = 'failed'
+        state.status = statuses.failed
         state.error = action.error.message
       })
 
       .addCase(TodoAPI.fetchById.pending, (state, action) => {
-        state.status = 'loading'
+        state.status = statuses.loading
       })
       .addCase(TodoAPI.fetchById.fulfilled, (state, action) => {
-        state.status = 'succeeded'
+        state.status = statuses.succeeded
         state.items = [action.payload]
       })
       .addCase(TodoAPI.fetchById.rejected, (state, action) => {
-        state.status = 'failed'
+        state.status = statuses.failed
         state.error = action.error.message
       })
 
       // Ask: I can change the todo in the Redux store, but what if in a meanwhile somebody updated another todo?
       // This way my todo list will be out of sync
       .addCase(TodoAPI.updateById.pending, (state, action) => {
-        state.status = 'loading'
+        state.status = statuses.loading
       })
       .addCase(TodoAPI.updateById.fulfilled, (state, action) => {
-        state.status = 'succeeded'
+        state.status = statuses.succeeded
       })
       .addCase(TodoAPI.updateById.rejected, (state, action) => {
-        state.status = 'failed'
+        state.status = statuses.failed
         state.error = action.error.message
       })
 
       .addCase(TodoAPI.removeById.pending, (state, action) => {
-        state.status = 'loading'
+        state.status = statuses.loading
       })
       .addCase(TodoAPI.removeById.fulfilled, (state, action) => {
-        state.status = 'succeeded'
+        state.status = statuses.succeeded
         const removedTodoId = action.meta.arg
         state.items = state.items.filter((obj) => obj.id !== removedTodoId)
       })
       .addCase(TodoAPI.removeById.rejected, (state, action) => {
-        state.status = 'failed'
+        state.status = statuses.failed
         state.error = action.error.message
       })
   }
@@ -89,3 +96,4 @@ export default todosSlice.reducer
 export const selectTodoList = state => state.todos.items
 // TODO: Optimize todo retrieval
 export const selectTodo = state => state.todos.items[0]
+export const selectTodoOperationStatus = state => state.todos.status
