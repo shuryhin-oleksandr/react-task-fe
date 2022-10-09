@@ -10,7 +10,6 @@ export const TodoAPI = {
   }),
   fetchAll: createAsyncThunk('todos/fetchAll', async () => {
     const response = await axios.get(`${todoListUrl}/`)
-    console.log(response.data)
     return response.data
   }),
   fetchById: createAsyncThunk('todos/fetchById', async (todoId) => {
@@ -18,7 +17,7 @@ export const TodoAPI = {
     const response = await axios.get(todoDetailUrl)
     return response.data
   }),
-  updateById: createAsyncThunk('todos/updateById', async (todoId, todoData) => {
+  updateById: createAsyncThunk('todos/updateById', async ({todoId, todoData}) => {
     const todoUpdatelUrl = `${todoListUrl}/${todoId}/`
     const response = await axios.patch(todoUpdatelUrl, todoData)
     return response.data

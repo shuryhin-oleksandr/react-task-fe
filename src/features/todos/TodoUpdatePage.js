@@ -37,7 +37,10 @@ export const TodoUpdateForm = () => {
   const onDescriptionChanged = e => setDescription(e.target.value)
 
   const handleSubmit = () => {
-    dispatch(TodoAPI.updateById(todoId, {name, description}))
+    dispatch(TodoAPI.updateById({
+      todoId: todoId,
+      todoData: {name, description}
+    }))
   }
 
   // Ask: What is a proper way to do a validation?
