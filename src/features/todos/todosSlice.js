@@ -1,6 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit'
 import {TodoAPI} from "./todoAPI";
-import {useDispatch} from "react-redux";
 
 const initialState = {
   items: [],
@@ -72,6 +71,8 @@ export const todosSlice = createSlice({
       })
       .addCase(TodoAPI.removeById.fulfilled, (state, action) => {
         state.status = 'succeeded'
+        const removedTodoId = action.meta.arg
+        state.items = state.items.filter((obj) => obj.id !== removedTodoId)
       })
       .addCase(TodoAPI.removeById.rejected, (state, action) => {
         state.status = 'failed'
