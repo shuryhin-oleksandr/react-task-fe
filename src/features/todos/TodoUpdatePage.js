@@ -11,7 +11,7 @@ const TodoUpdatePage = () => {
   const navigate = useNavigate();
 
   const {todoId} = useParams();
-  const todo = useSelector(state => selectTodo(state, Number(todoId)))
+  const todo = useSelector(selectTodo)
 
   const dispatch = useDispatch()
   React.useEffect(() => {

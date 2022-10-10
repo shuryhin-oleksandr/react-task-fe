@@ -112,6 +112,6 @@ export default todosSlice.reducer
 
 export const selectTodoList = state => state.todos.items
 export const selectTodosCount = state => state.todos.count
-export const selectTodo = (state) => state.todos.current
+export const selectTodo = state => state.todos.current
 // export const selectTodoOperationStatus = state => state.todos.status
 // export const selectTodoOperationError = state => state.todos.error

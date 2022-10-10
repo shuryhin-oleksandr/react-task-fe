@@ -10,7 +10,7 @@ import * as React from "react";
 export const TodoForm = (props) => {
   const dispatch = useDispatch()
   const {todoId} = useParams();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleUpdate = (todoData) => {
     dispatch(TodoAPI.updateById({todoId, todoData}))
