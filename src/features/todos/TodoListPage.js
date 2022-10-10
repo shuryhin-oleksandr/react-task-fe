@@ -17,7 +17,7 @@ import LastPageIcon from '@mui/icons-material/LastPage';
 import {Button, Checkbox, TableHead, Typography} from "@mui/material";
 import {NavLink} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {selectTodoList} from "./todosSlice";
+import {selectTodoList, selectTodosCount} from "./todosSlice";
 import {TodoAPI} from "./todoAPI";
 
 
@@ -111,6 +111,7 @@ const TodoList = () => {
   }, []);
 
   const todos = useSelector(selectTodoList)
+  const todosCount = useSelector(selectTodosCount)
 
   const updateTodoDone = (todoId, done) => {
     dispatch(TodoAPI.updateById({todoId: todoId, todoData: {done}}))
@@ -135,7 +136,7 @@ const TodoList = () => {
   };
 
   // Ask: deduplicate with TodoDetailPage
-  if (!todos.length) {
+  if (!todosCount) {
     return (
       <Paper elevation={3} sx={{maxWidth: 350, padding: 3}}>
         <Typography variant="h6">Todos not found</Typography>
@@ -156,10 +157,7 @@ const TodoList = () => {
           </TableHead>
 
           <TableBody>
-            {(rowsPerPage > 0
-                ? todos.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                : todos
-            ).map((todo) => (
+            {todos.map((todo) => (
               <TableRow key={todo.id}>
                 <TableCell component="th" scope="row">
                   <Checkbox checked={todo.done} onClick={() => updateTodoDone(todo.id, !todo.done)}/>
@@ -189,7 +187,7 @@ const TodoList = () => {
               <TablePagination
                 rowsPerPageOptions={[5, 10, 25, {label: 'All', value: -1}]}
                 colSpan={3}
-                count={todos.length}
+                count={todosCount}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 SelectProps={{

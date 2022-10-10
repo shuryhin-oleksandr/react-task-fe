@@ -11,7 +11,8 @@ export const todoOperationStatuses = {
 const initialState = {
   items: [],
   status: todoOperationStatuses.idle,
-  error: null
+  error: null,
+  count: null
 }
 
 export const todosSlice = createSlice({
@@ -48,7 +49,8 @@ export const todosSlice = createSlice({
       // })
       .addCase(TodoAPI.fetchAll.fulfilled, (state, action) => {
         state.status = todoOperationStatuses.succeeded
-        state.items = action.payload
+        state.items = action.payload.results
+        state.count = action.payload.count
       })
       // .addCase(TodoAPI.fetchAll.rejected, (state, action) => {
       //   state.status = todoOperationStatuses.failed
@@ -107,6 +109,7 @@ export const {setTodoList, resetStatus} = todosSlice.actions
 export default todosSlice.reducer
 
 export const selectTodoList = state => state.todos.items
+export const selectTodosCount = state => state.todos.count
 export const selectTodo = (state, todoId) => state.todos.items.find(todo => todo.id === todoId)
 // export const selectTodoOperationStatus = state => state.todos.status
 // export const selectTodoOperationError = state => state.todos.error
