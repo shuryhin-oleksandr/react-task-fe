@@ -44,15 +44,15 @@ export const todosSlice = createSlice({
       //   state.error = action.error.message
       // })
 
-      // .addCase(TodoAPI.fetchAll.pending, (state, action) => {
+      // .addCase(TodoAPI.fetchList.pending, (state, action) => {
       //   state.status = todoOperationStatuses.loading
       // })
-      .addCase(TodoAPI.fetchAll.fulfilled, (state, action) => {
+      .addCase(TodoAPI.fetchList.fulfilled, (state, action) => {
         state.status = todoOperationStatuses.succeeded
         state.items = action.payload.results
         state.count = action.payload.count
       })
-      // .addCase(TodoAPI.fetchAll.rejected, (state, action) => {
+      // .addCase(TodoAPI.fetchList.rejected, (state, action) => {
       //   state.status = todoOperationStatuses.failed
       //   state.error = action.error.message
       // })

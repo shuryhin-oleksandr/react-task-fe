@@ -30,7 +30,7 @@ const TodoDetail = () => {
 
   const dispatch = useDispatch()
   React.useEffect(() => {
-    dispatch(TodoAPI.fetchAll())
+    dispatch(TodoAPI.fetchList())
   }, []);
 
   // const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };

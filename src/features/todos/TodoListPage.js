@@ -107,7 +107,7 @@ const TodoList = () => {
 
   const dispatch = useDispatch()
   React.useEffect(() => {
-    dispatch(TodoAPI.fetchAll())
+    dispatch(TodoAPI.fetchList())
   }, []);
 
   const todos = useSelector(selectTodoList)
