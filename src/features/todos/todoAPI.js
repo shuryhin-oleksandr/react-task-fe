@@ -11,7 +11,10 @@ export const TodoAPI = {
     // }, 2000);
   }),
   fetchList: createAsyncThunk('todos/fetchList', async ({limit, offset}) => {
-    const response = await axios.get(`${todoListUrl}/`, {params: {limit, offset}})
+    let params = {}
+    if (limit !== null) params.limit = limit
+    if (offset !== null) params.offset = offset
+    const response = await axios.get(`${todoListUrl}/`, {params})
     return response.data
   }),
   fetchById: createAsyncThunk('todos/fetchById', async (todoId) => {
