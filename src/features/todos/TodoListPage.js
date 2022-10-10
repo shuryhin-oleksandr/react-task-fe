@@ -105,10 +105,12 @@ const TodoList = () => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
+  let limit = rowsPerPage;
+  let offset = page * rowsPerPage;
   const dispatch = useDispatch()
   React.useEffect(() => {
-    dispatch(TodoAPI.fetchList())
-  }, []);
+    dispatch(TodoAPI.fetchList({limit, offset}))
+  }, [page, rowsPerPage]);
 
   const todos = useSelector(selectTodoList)
   const todosCount = useSelector(selectTodosCount)
@@ -119,8 +121,8 @@ const TodoList = () => {
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - todos.length) : 0;
-
+    page > 0 ? Math.max(0, rowsPerPage - todos.length) : 0;
+  console.log(emptyRows)
   const handleChangePage = (
     event: React.MouseEvent<HTMLButtonElement> | null,
     newPage: number,

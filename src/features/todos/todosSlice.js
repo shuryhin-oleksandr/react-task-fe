@@ -52,10 +52,10 @@ export const todosSlice = createSlice({
         state.items = action.payload.results
         state.count = action.payload.count
       })
-      // .addCase(TodoAPI.fetchList.rejected, (state, action) => {
-      //   state.status = todoOperationStatuses.failed
-      //   state.error = action.error.message
-      // })
+      .addCase(TodoAPI.fetchList.rejected, (state, action) => {
+        state.status = todoOperationStatuses.failed
+        state.error = action.error.message
+      })
 
       // .addCase(TodoAPI.fetchById.pending, (state, action) => {
       //   state.status = todoOperationStatuses.loading
