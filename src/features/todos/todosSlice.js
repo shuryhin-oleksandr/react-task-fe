@@ -10,9 +10,10 @@ export const todoOperationStatuses = {
 
 const initialState = {
   items: [],
-  status: todoOperationStatuses.idle,
-  error: null,
-  count: null
+  count: null,
+  current: {},
+  // status: todoOperationStatuses.idle,
+  // error: null,
 }
 
 export const todosSlice = createSlice({
@@ -52,20 +53,21 @@ export const todosSlice = createSlice({
         state.items = action.payload.results
         state.count = action.payload.count
       })
-      .addCase(TodoAPI.fetchList.rejected, (state, action) => {
-        state.status = todoOperationStatuses.failed
-        state.error = action.error.message
-      })
+      // .addCase(TodoAPI.fetchList.rejected, (state, action) => {
+      //   state.status = todoOperationStatuses.failed
+      //   state.error = action.error.message
+      // })
 
       // .addCase(TodoAPI.fetchById.pending, (state, action) => {
       //   state.status = todoOperationStatuses.loading
       // })
-      // .addCase(TodoAPI.fetchById.fulfilled, (state, action) => {
-      //   state.status = todoOperationStatuses.succeeded
-      //   const serverTodoData = action.payload
-      //   const clientTodoIndex = state.items.findIndex(todo => todo.id === serverTodoData.id)
-      //   state.items.splice(serverTodoData, 1, clientTodoIndex)
-      // })
+      .addCase(TodoAPI.fetchById.fulfilled, (state, action) => {
+        //   state.status = todoOperationStatuses.succeeded
+        //   const serverTodoData = action.payload
+        //   const clientTodoIndex = state.items.findIndex(todo => todo.id === serverTodoData.id)
+        //   state.items.splice(serverTodoData, 1, clientTodoIndex)
+        state.current = action.payload
+      })
       // .addCase(TodoAPI.fetchById.rejected, (state, action) => {
       //   state.status = todoOperationStatuses.failed
       //   state.error = action.error.message
@@ -110,6 +112,6 @@ export default todosSlice.reducer
 
 export const selectTodoList = state => state.todos.items
 export const selectTodosCount = state => state.todos.count
-export const selectTodo = (state, todoId) => state.todos.items.find(todo => todo.id === todoId)
+export const selectTodo = (state) => state.todos.current
 // export const selectTodoOperationStatus = state => state.todos.status
 // export const selectTodoOperationError = state => state.todos.error

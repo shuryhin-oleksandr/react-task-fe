@@ -15,7 +15,7 @@ const TodoUpdatePage = () => {
 
   const dispatch = useDispatch()
   React.useEffect(() => {
-    dispatch(TodoAPI.fetchList())
+    dispatch(TodoAPI.fetchById(todoId))
   }, []);
 
   return (
