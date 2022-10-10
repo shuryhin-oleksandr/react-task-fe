@@ -42,6 +42,8 @@ export const TodoForm = (props) => {
       .max(200, 'Must be 200 characters or less'),
   })
 
+  console.log(props.initial)
+
   return (
     <Formik
       initialValues={props.initial}

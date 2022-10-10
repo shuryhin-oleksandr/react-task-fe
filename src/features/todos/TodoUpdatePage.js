@@ -26,7 +26,7 @@ const TodoUpdatePage = () => {
       </Button>
       <Typography variant="h4" gutterBottom>Update Todo</Typography>
       <Paper elevation={3} sx={{maxWidth: 230, padding: 3}}>
-        <TodoForm initial={todo} editMode={true}/>
+        <TodoForm initial={{...todo}} editMode={true}/>
       </Paper>
     </>
   )
