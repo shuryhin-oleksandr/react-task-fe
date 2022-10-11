@@ -42,8 +42,6 @@ export const TodoForm = (props) => {
       .max(200, 'Must be 200 characters or less'),
   })
 
-  console.log(props.initial)
-
   return (
     <Formik
       initialValues={props.initial}
@@ -60,7 +58,7 @@ export const TodoForm = (props) => {
             margin="dense" multiline minRows={2} sx={{maxWidth: 195}}/>
           <br/>
           <Button variant="contained" size="small" sx={{marginTop: 1}}
-                  onClick={() => formik.submitForm(formik.touched)}>Save</Button>
+                  onClick={formik.submitForm}>Save</Button>
         </Form>
       )}
     </Formik>
