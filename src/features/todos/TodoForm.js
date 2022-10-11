@@ -50,7 +50,7 @@ export const TodoForm = (props) => {
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
     >
-      {({submitForm}) => (
+      {(formik) => (
         <Form>
           <Field
             component={TextField} name="name" label="Name" variant="outlined" size="small" margin="dense"/>
@@ -59,7 +59,8 @@ export const TodoForm = (props) => {
             component={TextField} name="description" label="Description" variant="outlined" size="small"
             margin="dense" multiline minRows={2} sx={{maxWidth: 195}}/>
           <br/>
-          <Button variant="contained" size="small" sx={{marginTop: 1}} onClick={submitForm}>Save</Button>
+          <Button variant="contained" size="small" sx={{marginTop: 1}}
+                  onClick={() => formik.submitForm(formik.touched)}>Save</Button>
         </Form>
       )}
     </Formik>
