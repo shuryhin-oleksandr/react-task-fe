@@ -57,7 +57,7 @@ export const TodoForm = (props) => {
           <br/>
           <Field
             component={TextField} name="description" label="Description" variant="outlined" size="small"
-            margin="dense"/>
+            margin="dense" multiline minRows={2} sx={{maxWidth: 195}}/>
           <br/>
           <Button variant="contained" size="small" sx={{marginTop: 1}} onClick={submitForm}>Save</Button>
         </Form>
