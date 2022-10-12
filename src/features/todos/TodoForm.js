@@ -6,6 +6,7 @@ import {TodoAPI} from "./todoAPI";
 import {TextField} from "formik-mui";
 import {Button} from "@mui/material";
 import * as React from "react";
+import {diff} from "deep-object-diff";
 
 export const TodoForm = (props) => {
   const dispatch = useDispatch()
@@ -19,15 +20,17 @@ export const TodoForm = (props) => {
     dispatch(TodoAPI.create(todoData))
   }
 
-  const handleSubmit = async (todoData, {setSubmitting}) => {
+  const handleSubmit = async (formik) => {
+    const dataToSend = diff(formik.initialValues, formik.values);
+
     if (props.editMode) {
       // Ask: how can I submit until request is done?
       // Ask: Is it a correct way to handle both create and update actions?
-      await handleUpdate(todoData)
+      await handleUpdate(dataToSend)
     } else {
-      await handleCreate(todoData)
+      await handleCreate(dataToSend)
     }
-    setSubmitting(false)
+    formik.setSubmitting(false)
     navigate(-1)
   }
 
@@ -46,7 +49,6 @@ export const TodoForm = (props) => {
     <Formik
       initialValues={props.initial}
       validationSchema={validationSchema}
-      onSubmit={handleSubmit}
     >
       {(formik) => (
         <Form>
@@ -58,7 +60,7 @@ export const TodoForm = (props) => {
             margin="dense" multiline minRows={2} sx={{maxWidth: 195}}/>
           <br/>
           <Button variant="contained" size="small" sx={{marginTop: 1}}
-                  onClick={formik.submitForm}>Save</Button>
+                  onClick={() => handleSubmit(formik)}>Save</Button>
         </Form>
       )}
     </Formik>
