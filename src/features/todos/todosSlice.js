@@ -28,22 +28,16 @@ export const todosSlice = createSlice({
 
   extraReducers(builder) {
     builder
-      .addCase(TodoAPI.create.fulfilled, (state, action) => {
-        // Ask: do we actually need it here? We refetch list every time we go to list page
-        todosAdapter.addOne(state, action.payload)
-      })
+      // Ask: do we actually need it here? We refetch list every time we go to list page
+      .addCase(TodoAPI.create.fulfilled, todosAdapter.addOne)
       .addCase(TodoAPI.fetchList.fulfilled, (state, action) => {
         todosAdapter.setAll(state, action.payload.results)
         state.count = action.payload.count
       })
-      .addCase(TodoAPI.fetchById.fulfilled, (state, action) => {
-        todosAdapter.setOne(state, action.payload)
-      })
+      .addCase(TodoAPI.fetchById.fulfilled, todosAdapter.setOne)
       // Ask: I can change the todo in the Redux store, but what if in a meanwhile somebody updated another todo?
       // This way my todo list will be out of sync
-      .addCase(TodoAPI.updateById.fulfilled, (state, action) => {
-        todosAdapter.setOne(state, action.payload)
-      })
+      .addCase(TodoAPI.updateById.fulfilled, todosAdapter.setOne)
       .addCase(TodoAPI.removeById.fulfilled, (state, action) => {
         // TODO: add the same redux state handling for create and update
         const todoId = action.meta.arg
