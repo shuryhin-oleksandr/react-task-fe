@@ -104,19 +104,28 @@ const TodoListPage = () => {
 const TodoList = () => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const todos = useSelector(selectAllTodos)
 
   const dispatch = useDispatch()
   React.useEffect(() => {
+    fetchTodoList()
+  }, [page, rowsPerPage]);
+
+  const todosCount = useSelector(selectTodosCount)
+
+  const fetchTodoList = () => {
     let limit = rowsPerPage === -1 ? null : rowsPerPage;
     let offset = page * rowsPerPage;
     dispatch(TodoAPI.fetchList({limit, offset}))
-  }, [page, rowsPerPage]);
-
-  const todos = useSelector(selectAllTodos)
-  const todosCount = useSelector(selectTodosCount)
+  }
 
   const updateTodoDone = (todoId, done) => {
     dispatch(TodoAPI.updateById({todoId: todoId, todoData: {done}}))
+  }
+
+  const removeTodo = (todoId) => {
+    dispatch(TodoAPI.removeById(todoId))
+    fetchTodoList()
   }
 
   // Avoid a layout jump when reaching the last page with empty rows.
@@ -172,7 +181,7 @@ const TodoList = () => {
                   <Button
                     variant="contained"
                     size="small"
-                    onClick={() => dispatch(TodoAPI.removeById(todo.id))}
+                    onClick={() => removeTodo(todo.id)}
                   >Remove</Button>
                 </TableCell>
               </TableRow>
