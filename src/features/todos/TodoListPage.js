@@ -87,7 +87,7 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
   );
 }
 
-const TodoListPage = () => {
+let TodoListPage = () => {
   return (
     <>
       <Typography variant="h4" gutterBottom>
@@ -101,6 +101,7 @@ const TodoListPage = () => {
   )
 }
 
+// Ask: why do I see 2 actions in Redux Debug Toolbar?
 const TodoList = () => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
