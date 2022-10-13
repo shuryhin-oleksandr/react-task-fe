@@ -3,7 +3,7 @@ import * as React from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import Paper from "@mui/material/Paper";
 import {useDispatch, useSelector} from "react-redux";
-import {selectTodo} from "./todosSlice";
+import {selectTodoById} from "./todosSlice";
 import {TodoAPI} from "./todoAPI";
 import {TodoForm} from "./TodoForm";
 
@@ -12,7 +12,7 @@ const TodoUpdatePage = () => {
   const navigate = useNavigate();
 
   const {todoId} = useParams();
-  const todo = useSelector(selectTodo)
+  const todo = useSelector(state => selectTodoById(state, todoId))
 
   const dispatch = useDispatch()
   React.useEffect(() => {

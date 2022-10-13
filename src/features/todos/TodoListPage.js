@@ -17,7 +17,7 @@ import LastPageIcon from '@mui/icons-material/LastPage';
 import {Button, Checkbox, TableHead, Typography} from "@mui/material";
 import {NavLink} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {selectTodoList, selectTodosCount} from "./todosSlice";
+import {selectAllTodos, selectTodosCount} from "./todosSlice";
 import {TodoAPI} from "./todoAPI";
 
 
@@ -112,7 +112,7 @@ const TodoList = () => {
     dispatch(TodoAPI.fetchList({limit, offset}))
   }, [page, rowsPerPage]);
 
-  const todos = useSelector(selectTodoList)
+  const todos = useSelector(selectAllTodos)
   const todosCount = useSelector(selectTodosCount)
 
   const updateTodoDone = (todoId, done) => {

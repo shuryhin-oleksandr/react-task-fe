@@ -1,4 +1,4 @@
-import {createSlice} from '@reduxjs/toolkit'
+import {createEntityAdapter, createSlice} from '@reduxjs/toolkit'
 import {TodoAPI} from "./todoAPI";
 
 export const todoOperationStatuses = {
@@ -8,22 +8,18 @@ export const todoOperationStatuses = {
   idle: 'idle',
 }
 
-const initialState = {
-  items: [],
+const todosAdapter = createEntityAdapter()
+
+const initialState = todosAdapter.getInitialState({
   count: null,
-  current: {},
-  // status: todoOperationStatuses.idle,
+  status: todoOperationStatuses.idle,
   // error: null,
-}
+})
 
 export const todosSlice = createSlice({
   name: 'todos',
   initialState: initialState,
   reducers: {
-    setTodoList: (state, action) => {
-      // Ask: Why I cannot just assign to state?
-      state.items = action.payload
-    },
     // resetStatus: (state, action) => {
     //   state.status = todoOperationStatuses.idle
     //   state.error = null
@@ -50,9 +46,11 @@ export const todosSlice = createSlice({
       // .addCase(TodoAPI.create.pending, (state, action) => {
       //   state.status = todoOperationStatuses.loading
       // })
-      // .addCase(TodoAPI.create.fulfilled, (state, action) => {
-      //   state.status = todoOperationStatuses.succeeded
-      // })
+      .addCase(TodoAPI.create.fulfilled, (state, action) => {
+        state.status = todoOperationStatuses.succeeded
+        // Ask: do we actually need it here? We refetch list every time we go to list page
+        todosAdapter.addOne(state, action.payload)
+      })
       // .addCase(TodoAPI.create.rejected, (state, action) => {
       //   state.status = todoOperationStatuses.failed
       //   state.error = action.error.message
@@ -63,7 +61,7 @@ export const todosSlice = createSlice({
       // })
       .addCase(TodoAPI.fetchList.fulfilled, (state, action) => {
         state.status = todoOperationStatuses.succeeded
-        state.items = action.payload.results
+        todosAdapter.setAll(state, action.payload.results)
         state.count = action.payload.count
       })
       // .addCase(TodoAPI.fetchList.rejected, (state, action) => {
@@ -79,7 +77,7 @@ export const todosSlice = createSlice({
         //   const serverTodoData = action.payload
         //   const clientTodoIndex = state.items.findIndex(todo => todo.id === serverTodoData.id)
         //   state.items.splice(serverTodoData, 1, clientTodoIndex)
-        state.current = action.payload
+        todosAdapter.setOne(state, action.payload)
       })
       // .addCase(TodoAPI.fetchById.rejected, (state, action) => {
       //   state.status = todoOperationStatuses.failed
@@ -93,9 +91,7 @@ export const todosSlice = createSlice({
       // })
       .addCase(TodoAPI.updateById.fulfilled, (state, action) => {
         state.status = todoOperationStatuses.succeeded
-        const updatedTodoData = action.payload
-        const oldTodoIndex = state.items.findIndex(todo => todo.id === updatedTodoData.id)
-        state.items.splice(oldTodoIndex, 1, updatedTodoData)
+        todosAdapter.setOne(state, action.payload)
       })
       // .addCase(TodoAPI.updateById.rejected, (state, action) => {
       //   state.status = todoOperationStatuses.failed
@@ -109,7 +105,7 @@ export const todosSlice = createSlice({
         state.status = todoOperationStatuses.succeeded
         // TODO: add the same redux state handling for create and update
         const todoId = action.meta.arg
-        state.items = state.items.filter((obj) => obj.id !== todoId)
+        todosAdapter.removeOne(state, todoId)
       })
     // .addCase(TodoAPI.removeById.rejected, (state, action) => {
     //   state.status = todoOperationStatuses.failed
@@ -118,13 +114,9 @@ export const todosSlice = createSlice({
   }
 })
 
-// TODO: Correct naming here?
-export const {setTodoList, resetStatus} = todosSlice.actions
-
 export default todosSlice.reducer
 
-export const selectTodoList = state => state.todos.items
 export const selectTodosCount = state => state.todos.count
-export const selectTodo = state => state.todos.current
-// export const selectTodoOperationStatus = state => state.todos.status
-// export const selectTodoOperationError = state => state.todos.error
+
+export const { selectAll: selectAllTodos, selectById: selectTodoById } =
+  todosAdapter.getSelectors(state => state.todos)

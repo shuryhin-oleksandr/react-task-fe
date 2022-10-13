@@ -3,7 +3,7 @@ import {NavLink, useNavigate, useParams} from "react-router-dom";
 import Paper from "@mui/material/Paper";
 import * as React from "react";
 import Box from "@mui/material/Box";
-import {selectTodo} from "./todosSlice";
+import {selectTodoById} from "./todosSlice";
 import {useDispatch, useSelector} from "react-redux";
 import {TodoAPI} from "./todoAPI";
 
@@ -26,7 +26,7 @@ const TodoDetailPage = () => {
 
 const TodoDetail = () => {
   const {todoId} = useParams();
-  const todo = useSelector(selectTodo)
+  const todo = useSelector(state => selectTodoById(state, todoId))
 
   const dispatch = useDispatch()
   React.useEffect(() => {
