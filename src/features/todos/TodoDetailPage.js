@@ -6,6 +6,7 @@ import Box from "@mui/material/Box";
 import {selectTodoById} from "./todosSlice";
 import {useDispatch, useSelector} from "react-redux";
 import {TodoAPI} from "./todoAPI";
+import moment from "moment/moment";
 
 
 const TodoDetailPage = () => {
@@ -57,10 +58,9 @@ const TodoDetail = () => {
       <Typography variant="body1" gutterBottom>
         {todo.description}
       </Typography>
-      <Typography variant="body1" gutterBottom>
+      <Typography variant="body1" gutterBottom sx={{ fontStyle: 'italic' }}>
         {/*Ask: How to debug an app ()*/}
-        {/*Ask: fix date formatting*/}
-        {todo.created_at}
+        {todo.created_at.replace(/T/, ' ').replace(/\..+/, '') }
       </Typography>
     </>
   )
