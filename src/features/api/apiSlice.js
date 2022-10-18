@@ -5,7 +5,7 @@ export const apiSlice = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({baseUrl: API_URL}),
   tagTypes: ['Todo'],
-  // TODO: check tags dependencies
+  // Ask: is that correct tag dependencies? Should really addNewTodo untag TodoDetail?
   endpoints: builder => ({
     getTodos: builder.query({
       query: (params) => ({
@@ -24,7 +24,7 @@ export const apiSlice = createApi({
         method: 'POST',
         body: initialTodo
       }),
-      invalidatesTags: ['TodoList']
+      invalidatesTags: ['TodoList', 'TodoDetail']
     }),
     editTodo: builder.mutation({
       query: ({todoId, todoData}) => ({
@@ -32,7 +32,14 @@ export const apiSlice = createApi({
         method: 'PATCH',
         body: todoData
       }),
-      invalidatesTags: ['TodoDetail']
+      invalidatesTags: ['TodoList', 'TodoDetail']
+    }),
+    deleteTodo: builder.mutation({
+      query: (todoId) => ({
+        url: `/todos/${todoId}/`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['TodoList', 'TodoDetail']
     }),
   })
 })
