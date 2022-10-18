@@ -9,7 +9,7 @@ export const apiSlice = createApi({
       query: () => '/todos/'
     }),
     getTodo: builder.query({
-      query: todoId => `/todos/${todoId}`
+      query: todoId => `/todos/${todoId}/`
     })
   })
 })

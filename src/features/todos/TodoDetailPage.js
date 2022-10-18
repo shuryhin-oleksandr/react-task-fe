@@ -3,10 +3,7 @@ import {NavLink, useNavigate, useParams} from "react-router-dom";
 import Paper from "@mui/material/Paper";
 import * as React from "react";
 import Box from "@mui/material/Box";
-import {selectTodoById} from "./todosSlice";
-import {useDispatch, useSelector} from "react-redux";
-import {TodoAPI} from "./todoAPI";
-import moment from "moment/moment";
+import {useGetTodoQuery} from "../api/apiSlice";
 
 
 const TodoDetailPage = () => {
@@ -27,15 +24,11 @@ const TodoDetailPage = () => {
 
 const TodoDetail = () => {
   const {todoId} = useParams();
-  const todo = useSelector(state => selectTodoById(state, todoId))
 
-  const dispatch = useDispatch()
   // Ask: Do we actually need it here?
   // From one side, we already have an info about all todos
   // From the other side, what if someone updated the todo in a meanwhile?
-  React.useEffect(() => {
-    dispatch(TodoAPI.fetchById(todoId))
-  }, []);
+  const { data: todo, isFetching, isSuccess } = useGetTodoQuery(todoId)
 
   // const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
   // const dateStr = row.createdAt.toLocaleDateString("en-US", dateOptions)
