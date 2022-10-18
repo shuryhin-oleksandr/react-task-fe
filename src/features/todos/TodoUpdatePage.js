@@ -2,22 +2,17 @@ import {Button, Typography} from "@mui/material";
 import * as React from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import Paper from "@mui/material/Paper";
-import {useDispatch, useSelector} from "react-redux";
-import {selectTodoById} from "./todosSlice";
-import {TodoAPI} from "./todoAPI";
 import {TodoForm} from "./TodoForm";
+import {useGetTodoQuery} from "../api/apiSlice";
 
 // Ask: try to go to this page from detail view, and then update
 const TodoUpdatePage = () => {
   const navigate = useNavigate();
 
   const {todoId} = useParams();
-  const todo = useSelector(state => selectTodoById(state, todoId))
-
-  const dispatch = useDispatch()
-  React.useEffect(() => {
-    dispatch(TodoAPI.fetchById(todoId))
-  }, []);
+  // Ask: do we need to refetch here? The todo could be update between moments
+  // when use loaded a list page and moved on a specific todo page
+  const {data: todo, isFetching, isSuccess} = useGetTodoQuery(todoId)
 
   return (
     <>
