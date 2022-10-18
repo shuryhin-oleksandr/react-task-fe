@@ -113,16 +113,17 @@ const TodoList = () => {
     isLoading,
     isSuccess,
     isError,
-    error
+    error,
+    refetch
   } = useGetTodosQuery({limit, offset})
   const todos = todosData.results
   const todosCount = todosData.count
 
-  const dispatch = useDispatch()
+  React.useEffect(() => {
+    refetch()
+  }, []);
 
-  const fetchTodoList = () => {
-    dispatch(TodoAPI.fetchList({limit, offset}))
-  }
+  const dispatch = useDispatch()
 
   const updateTodoDone = (todoId, done) => {
     dispatch(TodoAPI.updateById({todoId: todoId, todoData: {done}}))
@@ -130,7 +131,7 @@ const TodoList = () => {
 
   const removeTodo = (todoId) => {
     dispatch(TodoAPI.removeById(todoId))
-    fetchTodoList()
+    refetch()
   }
 
   // Avoid a layout jump when reaching the last page with empty rows.
