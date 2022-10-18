@@ -109,15 +109,16 @@ const TodoList = () => {
   let limit = rowsPerPage === -1 ? null : rowsPerPage;
   let offset = page * rowsPerPage;
   const {
-    data: todos = [],
+    data: todosData = [],
     isLoading,
     isSuccess,
     isError,
     error
   } = useGetTodosQuery({limit, offset})
+  const todos = todosData.results
+  const todosCount = todosData.count
 
   const dispatch = useDispatch()
-  const todosCount = todos.length
 
   const fetchTodoList = () => {
     dispatch(TodoAPI.fetchList({limit, offset}))
