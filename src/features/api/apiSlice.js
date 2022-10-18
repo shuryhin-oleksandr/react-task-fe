@@ -5,16 +5,18 @@ export const apiSlice = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({baseUrl: API_URL}),
   tagTypes: ['Todo'],
+  // TODO: check tags dependencies
   endpoints: builder => ({
     getTodos: builder.query({
       query: (params) => ({
         url: '/todos/',
         params: params,
       }),
-      providesTags: ['Todo']
+      providesTags: ['TodoList']
     }),
     getTodo: builder.query({
-      query: todoId => `/todos/${todoId}/`
+      query: todoId => `/todos/${todoId}/`,
+      providesTags: ['TodoDetail']
     }),
     addNewTodo: builder.mutation({
       query: initialTodo => ({
@@ -22,9 +24,17 @@ export const apiSlice = createApi({
         method: 'POST',
         body: initialTodo
       }),
-      invalidatesTags: ['Todo']
-    })
+      invalidatesTags: ['TodoList']
+    }),
+    editTodo: builder.mutation({
+      query: ({todoId, todoData}) => ({
+        url: `/todos/${todoId}/`,
+        method: 'PATCH',
+        body: todoData
+      }),
+      invalidatesTags: ['TodoDetail']
+    }),
   })
 })
 
-export const {useGetTodosQuery, useGetTodoQuery, useAddNewTodoMutation} = apiSlice
+export const {useGetTodosQuery, useGetTodoQuery, useAddNewTodoMutation, useEditTodoMutation} = apiSlice

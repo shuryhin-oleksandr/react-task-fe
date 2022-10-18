@@ -1,25 +1,23 @@
-import {useDispatch} from "react-redux";
 import {useNavigate, useParams} from "react-router-dom";
 import {Field, Form, Formik} from "formik";
 import * as Yup from "yup";
-import {TodoAPI} from "./todoAPI";
 import {TextField} from "formik-mui";
 import {Button} from "@mui/material";
 import * as React from "react";
 import {diff} from "deep-object-diff";
-import {useAddNewTodoMutation} from "../api/apiSlice";
+import {useAddNewTodoMutation, useEditTodoMutation} from "../api/apiSlice";
 
 export const TodoForm = (props) => {
-  const dispatch = useDispatch()
   const {todoId} = useParams();
   const navigate = useNavigate();
   // TODO: Remove redundant argument
   // TODO: Add error handling
   // TODO: Add loading handling
-  const [addNewToDo, { isLoading }] = useAddNewTodoMutation()
+  const [addNewToDo, { isAddLoading }] = useAddNewTodoMutation()
+  const [editToDo, { isEditLoading }] = useEditTodoMutation()
 
   const handleUpdate = (todoData) => {
-    dispatch(TodoAPI.updateById({todoId, todoData}))
+    editToDo({todoId, todoData})
   }
   const handleCreate = (todoData) => {
     addNewToDo(todoData)
