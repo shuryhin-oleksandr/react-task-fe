@@ -24,5 +24,4 @@ export const apiSlice = createApi({
   })
 })
 
-// Export the auto-generated hook for the `getPosts` query endpoint
-export const {useGetTodosQuery, useGetTodoQuery} = apiSlice
+export const {useGetTodosQuery, useGetTodoQuery, useAddNewTodoMutation} = apiSlice

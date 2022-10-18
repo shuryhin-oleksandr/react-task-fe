@@ -7,17 +7,20 @@ import {TextField} from "formik-mui";
 import {Button} from "@mui/material";
 import * as React from "react";
 import {diff} from "deep-object-diff";
+import {useAddNewTodoMutation} from "../api/apiSlice";
 
 export const TodoForm = (props) => {
   const dispatch = useDispatch()
   const {todoId} = useParams();
   const navigate = useNavigate();
+  // TODO: Remove redundant argument
+  const [addNewToDo, { isLoading }] = useAddNewTodoMutation()
 
   const handleUpdate = (todoData) => {
     dispatch(TodoAPI.updateById({todoId, todoData}))
   }
   const handleCreate = (todoData) => {
-    dispatch(TodoAPI.create(todoData))
+    addNewToDo(todoData)
   }
 
   const handleSubmit = async (formik) => {
