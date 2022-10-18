@@ -15,6 +15,7 @@ export const TodoForm = (props) => {
   const navigate = useNavigate();
   // TODO: Remove redundant argument
   // TODO: Add error handling
+  // TODO: Add loading handling
   const [addNewToDo, { isLoading }] = useAddNewTodoMutation()
 
   const handleUpdate = (todoData) => {
