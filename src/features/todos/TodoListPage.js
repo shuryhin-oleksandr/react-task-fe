@@ -106,20 +106,20 @@ const TodoList = () => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
+  let limit = rowsPerPage === -1 ? null : rowsPerPage;
+  let offset = page * rowsPerPage;
   const {
     data: todos = [],
     isLoading,
     isSuccess,
     isError,
     error
-  } = useGetTodosQuery()
+  } = useGetTodosQuery({limit, offset})
 
   const dispatch = useDispatch()
   const todosCount = todos.length
 
   const fetchTodoList = () => {
-    let limit = rowsPerPage === -1 ? null : rowsPerPage;
-    let offset = page * rowsPerPage;
     dispatch(TodoAPI.fetchList({limit, offset}))
   }
 

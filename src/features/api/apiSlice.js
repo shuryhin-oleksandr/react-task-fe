@@ -6,10 +6,20 @@ export const apiSlice = createApi({
   baseQuery: fetchBaseQuery({baseUrl: API_URL}),
   endpoints: builder => ({
     getTodos: builder.query({
-      query: () => '/todos/'
+      query: (params) => ({
+        url: '/todos/',
+        params: params,
+      })
     }),
     getTodo: builder.query({
       query: todoId => `/todos/${todoId}/`
+    }),
+    addNewTodo: builder.mutation({
+      query: initialTodo => ({
+        url: '/todos/',
+        method: 'POST',
+        body: initialTodo
+      })
     })
   })
 })
