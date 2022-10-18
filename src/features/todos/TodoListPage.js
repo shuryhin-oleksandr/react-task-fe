@@ -16,9 +16,7 @@ import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
 import {Button, Checkbox, TableHead, Typography} from "@mui/material";
 import {NavLink} from "react-router-dom";
-import {useDispatch} from "react-redux";
-import {TodoAPI} from "./todoAPI";
-import {useGetTodosQuery} from "../api/apiSlice";
+import {useDeleteTodoMutation, useEditTodoMutation, useGetTodosQuery} from "../api/apiSlice";
 
 
 interface TablePaginationActionsProps {
@@ -115,18 +113,19 @@ const TodoList = () => {
     isError,
     error,
   } = useGetTodosQuery({limit, offset})
+
+  const [editToDo, {isEditLoading}] = useEditTodoMutation()
+  const [deleteToDo, {isDeleteLoading}] = useDeleteTodoMutation()
+
   const todos = todosData.results
   const todosCount = todosData.count
 
-  const dispatch = useDispatch()
-
   const updateTodoDone = (todoId, done) => {
-    dispatch(TodoAPI.updateById({todoId: todoId, todoData: {done}}))
+    editToDo({todoId: todoId, todoData: {done}})
   }
 
   const removeTodo = (todoId) => {
-    dispatch(TodoAPI.removeById(todoId))
-    refetch()
+    deleteToDo(todoId)
   }
 
   // Avoid a layout jump when reaching the last page with empty rows.

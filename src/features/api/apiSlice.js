@@ -44,4 +44,10 @@ export const apiSlice = createApi({
   })
 })
 
-export const {useGetTodosQuery, useGetTodoQuery, useAddNewTodoMutation, useEditTodoMutation} = apiSlice
+export const {
+  useGetTodosQuery,
+  useGetTodoQuery,
+  useAddNewTodoMutation,
+  useEditTodoMutation,
+  useDeleteTodoMutation
+} = apiSlice
