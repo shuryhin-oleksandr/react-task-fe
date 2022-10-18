@@ -114,14 +114,9 @@ const TodoList = () => {
     isSuccess,
     isError,
     error,
-    refetch
   } = useGetTodosQuery({limit, offset})
   const todos = todosData.results
   const todosCount = todosData.count
-
-  React.useEffect(() => {
-    refetch()
-  }, []);
 
   const dispatch = useDispatch()
 
