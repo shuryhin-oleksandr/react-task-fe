@@ -16,9 +16,9 @@ import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
 import {Button, Checkbox, TableHead, Typography} from "@mui/material";
 import {NavLink} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import {selectAllTodos, selectTodosCount} from "./todosSlice";
+import {useDispatch} from "react-redux";
 import {TodoAPI} from "./todoAPI";
+import {useGetTodosQuery} from "../api/apiSlice";
 
 
 interface TablePaginationActionsProps {
@@ -105,14 +105,17 @@ let TodoListPage = () => {
 const TodoList = () => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const todos = useSelector(selectAllTodos)
+
+  const {
+    data: todos = [],
+    isLoading,
+    isSuccess,
+    isError,
+    error
+  } = useGetTodosQuery()
 
   const dispatch = useDispatch()
-  React.useEffect(() => {
-    fetchTodoList()
-  }, [page, rowsPerPage]);
-
-  const todosCount = useSelector(selectTodosCount)
+  const todosCount = todos.length
 
   const fetchTodoList = () => {
     let limit = rowsPerPage === -1 ? null : rowsPerPage;

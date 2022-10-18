@@ -30,6 +30,9 @@ const TodoDetail = () => {
   const todo = useSelector(state => selectTodoById(state, todoId))
 
   const dispatch = useDispatch()
+  // Ask: Do we actually need it here?
+  // From one side, we already have an info about all todos
+  // From the other side, what if someone updated the todo in a meanwhile?
   React.useEffect(() => {
     dispatch(TodoAPI.fetchById(todoId))
   }, []);
