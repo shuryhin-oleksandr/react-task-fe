@@ -16,11 +16,11 @@ export const TodoForm = (props) => {
   const [addNewToDo, { isAddLoading }] = useAddNewTodoMutation()
   const [editToDo, { isEditLoading }] = useEditTodoMutation()
 
-  const handleUpdate = (todoData) => {
-    editToDo({todoId, todoData})
+  const handleUpdate = async (todoData) => {
+    await editToDo({todoId, todoData})
   }
-  const handleCreate = (todoData) => {
-    addNewToDo(todoData)
+  const handleCreate = async (todoData) => {
+    await addNewToDo(todoData)
   }
 
   const handleSubmit = async (formik) => {

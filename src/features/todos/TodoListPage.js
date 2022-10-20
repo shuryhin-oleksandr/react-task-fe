@@ -106,6 +106,7 @@ const TodoList = () => {
 
   let limit = rowsPerPage === -1 ? null : rowsPerPage;
   let offset = page * rowsPerPage;
+  // RTK cahces results, but what if someone created a to-do in a meanwhile on the server?
   const {
     data: todosData = [],
     isLoading,
@@ -120,12 +121,13 @@ const TodoList = () => {
   const todos = todosData.results
   const todosCount = todosData.count
 
-  const updateTodoDone = (todoId, done) => {
-    editToDo({todoId: todoId, todoData: {done}})
+  const updateTodoDone = async (todoId, done) => {
+    await editToDo({todoId: todoId, todoData: {done}})
   }
 
-  const removeTodo = (todoId) => {
-    deleteToDo(todoId)
+  // Ask: why does it work with no async and await?
+  const removeTodo = async (todoId) => {
+    await deleteToDo(todoId)
   }
 
   // Avoid a layout jump when reaching the last page with empty rows.
