@@ -32,11 +32,14 @@ export const apiSlice = createApi({
         url: '/todos/',
         params: params,
       }),
-      providesTags: ['TodoList']
+      providesTags: (result = [], error, arg) => [
+        'Todo',
+        ...result.results.map(({ id }) => ({ type: 'Todo', id }))
+      ]
     }),
     getTodo: builder.query({
       query: todoId => `/todos/${todoId}/`,
-      providesTags: ['TodoDetail']
+      providesTags: (result, error, arg) => [{ type: 'Todo', id: arg }]
     }),
     // Ask: do we actually need it here? We can refetch list every time we go to list page
     addNewTodo: builder.mutation({
@@ -45,7 +48,7 @@ export const apiSlice = createApi({
         method: 'POST',
         body: initialTodo
       }),
-      invalidatesTags: ['TodoList', 'TodoDetail']
+      invalidatesTags: ['Todo']
     }),
     // Ask: do we actually need it here? We can refetch to-do details every time we go to list page
     editTodo: builder.mutation({
@@ -54,14 +57,14 @@ export const apiSlice = createApi({
         method: 'PATCH',
         body: todoData
       }),
-      invalidatesTags: ['TodoList', 'TodoDetail']
+      invalidatesTags: (result, error, arg) => [{ type: 'Todo', id: arg.id }]
     }),
     deleteTodo: builder.mutation({
       query: (todoId) => ({
         url: `/todos/${todoId}/`,
         method: 'DELETE',
       }),
-      invalidatesTags: ['TodoList', 'TodoDetail']
+      invalidatesTags: (result, error, arg) => [{ type: 'Todo', id: arg.id }]
     }),
   })
 })
