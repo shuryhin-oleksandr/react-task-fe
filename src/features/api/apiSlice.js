@@ -34,7 +34,7 @@ export const apiSlice = createApi({
       }),
       providesTags: (result = [], error, arg) => [
         'Todo',
-        ...result.results.map(({ id }) => ({ type: 'Todo', id }))
+        ...result.results?.map(({ id }) => ({ type: 'Todo', id })) ?? []
       ]
     }),
     getTodo: builder.query({

@@ -99,6 +99,12 @@ let TodoListPage = () => {
   )
 }
 
+const ErrorPaper = (props) => (
+  <Paper elevation={3} sx={{maxWidth: 350, padding: 3}}>
+    <Typography variant="h6">{props.message}</Typography>
+  </Paper>
+)
+
 // Ask: why do I see 2 actions in Redux Debug Toolbar?
 const TodoList = () => {
   const [page, setPage] = React.useState(0);
@@ -118,8 +124,11 @@ const TodoList = () => {
   const [editToDo, {isEditLoading}] = useEditTodoMutation()
   const [deleteToDo, {isDeleteLoading}] = useDeleteTodoMutation()
 
-  const todos = todosData.results
+  const todos = todosData.results || []
   const todosCount = todosData.count
+
+  console.log(todos)
+  console.log(error)
 
   const updateTodoDone = async (todoId, done) => {
     await editToDo({todoId: todoId, todoData: {done}})
@@ -147,13 +156,12 @@ const TodoList = () => {
     setPage(0);
   };
 
+  if (error) {
+    return <ErrorPaper message={`${error.status}: ${error.error}`} />
+  }
   // Ask: deduplicate with TodoDetailPage
   if (!todosCount) {
-    return (
-      <Paper elevation={3} sx={{maxWidth: 350, padding: 3}}>
-        <Typography variant="h6">Todos not found</Typography>
-      </Paper>
-    )
+    return <ErrorPaper message='Todos not found' />
   }
 
   return (
